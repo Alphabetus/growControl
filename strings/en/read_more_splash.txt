@@ -1,0 +1,11 @@
+<!--
+this file is loaded with JAVASCRIPT to keep breaklines use '<br>'
+-->
+<strong>Features .:</strong>
+<br><br>
+<i class="far fa-arrow-alt-circle-right"></i> Only username and password are required to register.<br>
+<i class="far fa-arrow-alt-circle-right"></i> Water & Nutrient logging.<br>
+<i class="far fa-arrow-alt-circle-right"></i> Temperature & Humidity logging.<br>
+<i class="far fa-arrow-alt-circle-right"></i> Public or Private photo albums.<br>
+<i class="far fa-arrow-alt-circle-right"></i> Zero personal data collected.<br>
+<i class="far fa-arrow-alt-circle-right"></i> 100% free to use.

@@ -1,0 +1,150 @@
+/* ROOT VARIABLES STUFF ###################################### */
+:root{
+
+  /* COLOR STUFF */
+  --color-green-dark: #4E6E5D;
+  --color-green-light: #82B79B;
+  --color-green-alt: #B5BA72;
+  --color-green-pale: #EBF2EA;
+  /* TRANSITION STUFF  */
+  --transition-all-01: all 0.6s ease-in-out;
+}
+
+
+/* GENERAL STUFF ###################################### */
+h1, h2, h3, h4, h5{
+  font-family: 'Rokkitt', serif;
+}
+body{
+  font-family: 'Ubuntu', sans-serif;
+  background-color: var(--color-green-pale);
+}
+
+/* link styling  */
+a{
+  color: var(--color-green-light);
+  transition: var(--transition-all-01);
+  -webkit-transition: var(--transition-all-01);
+}
+a:hover{
+  color: var(--color-green-alt);
+  text-decoration: none;
+}
+
+/* h3 sizing including media queries  */
+h3{font-size: 1.3em;}
+@media(min-width: 450px){h3{font-size: 1.6em;}}
+@media(min-width: 599px){h3{font-size: 1.8em;}}
+/* end of h3 sizing  */
+
+/* button text sizing including mediq queries */
+.btn{font-size: 0.75em;}
+@media(min-width: 450px){.btn{font-size: 0.85em;}}
+@media(min-width: 599px){.btn{font-size: 0.90em;}}
+/* end of button text sizing */
+
+/* paragraph font sizing including media queries  */
+p{font-size: 0.75em;}
+@media(min-width: 450px){p{font-size:0.85em;}}
+@media(min-width: 599px){p{font-size:0.90em;}}
+/* end of paragraph sizing  */
+
+.row{
+  margin: 0;
+  padding: 0;
+}
+
+.container-fluid{
+  margin: 0;
+  padding: 0;
+}
+
+.rounded{
+  border-radius: 0.15em!important;
+}
+
+.content-padding-top{
+  padding-top: 3em;
+}
+.section-box{
+  min-height: 100vh;
+}
+/* MENU STUFF ###################################### */
+
+/* base menu configs  */
+#menu{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  min-height: 6vh;
+  padding: 0 1vw 0 1vw;
+  z-index: 100;
+}
+
+
+/* coloring base links and brand */
+#menu a, #menu .navbar-brand, #menu i{
+  color: var(--color-green-light);
+  /* fx */
+  transition: var(--transition-all-01);
+  -webkit-transition: var(--transition-all-01);
+}
+
+/* coloring menu links hover */
+#menu a:hover, #menu i:hover{
+  color: var(--color-green-alt);
+}
+
+/* LANDING STUFF ###################################### */
+
+#landing h3 > i{
+  font-size: 0.8em;
+}
+
+/* splash square styling  */
+#landing .splash-container{
+  background-color: var(--color-green-dark);
+  color: var(--color-green-pale);
+  padding: 2em;
+}
+
+/* LOGIN / REGISTER STUFF ##################################### */
+
+#userauth h3 > i{
+  font-size: 0.8em;
+}
+
+#userauth .auth-container{
+  background-color: var(--color-green-dark);
+  color: var(--color-green-pale);
+  padding: 2em;
+}
+
+.btn-auth{
+  min-width: 16.6%;
+}
+
+/* BUTTON STYLING ##################################### */
+.btn-outline-info{
+  border-color: var(--color-green-pale);
+  color: var(--color-green-pale);
+}
+.btn-outline-info:hover{
+  border-color: var(--color-green-pale);
+  color: var(--color-green-dark);
+  background-color: var(--color-green-pale);
+}
+
+/* FOOTER STYLING ###################################### */
+
+footer{
+  position: fixed;
+  bottom: 0;
+  height: 14px;
+  width: 100vw;
+  background-color: var(--dark);
+  font-size: 10px;
+  color: var(--color-green-light);
+  overflow: hidden;
+}

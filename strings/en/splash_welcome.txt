@@ -1,0 +1,11 @@
+<i><strong>Welcome stranger</strong></i>
+
+<i class="far fa-question-circle"></i> Do you have an indoor culture to keep track and record accurate logs?
+<i class="far fa-question-circle"></i> Are you looking for an online platform that tracks no records from their users?
+<i class="far fa-question-circle"></i> Would you like to have a public or private photo gallery for your grow?
+<i class="far fa-question-circle"></i> What if that webApp was free to use?
+
+
+<div id="splash_shout" class="text-center"><!-- keep this div -->
+  <i class="fas fa-bullhorn"></i>&nbsp;&nbsp;&nbsp;This is Grow Control&nbsp;&nbsp;&nbsp;<i class="fas fa-bullhorn fa-flip-horizontal"></i>
+</div><!-- keep this div -->
