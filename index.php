@@ -1,9 +1,19 @@
 <?php
+// session start
+session_start();
+// error display if any
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+// format timezone
+date_default_timezone_set('Europe/Berlin');
 // include functions
 require "functions/general_engine.php";
+require "config/dbConfig.php";
+// logout general action
+if (isset($_GET["logout"])){
+  logoutUser($_SESSION["user_id"]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -17,7 +27,7 @@ require "functions/general_engine.php";
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <!-- /font awesome stuff -->
     <!-- google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Rokkitt|Ubuntu" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik|Ubuntu" rel="stylesheet">
     <!-- /google fonts -->
     <!-- get jquery braw -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -29,10 +39,17 @@ require "functions/general_engine.php";
   <body>
 
     <!-- navigation partial -->
-    <?php include "partials/navigation.php"; ?>
+    <?php
+      if (isset($_SESSION["user"])){
+        include "partials/navigation_logged.php";
+      }
+      else{
+        include "partials/navigation.php";
+      }
+    ?>
     <!-- /navigation partial -->
-
     <div class="container-fluid">
+
       <?php
         if (isset($_GET["view"])){
           // we have a view requested > lets deliver

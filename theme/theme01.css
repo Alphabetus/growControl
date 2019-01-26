@@ -13,7 +13,7 @@
 
 /* GENERAL STUFF ###################################### */
 h1, h2, h3, h4, h5{
-  font-family: 'Rokkitt', serif;
+  font-family: 'Rubik', serif;
 }
 body{
   font-family: 'Ubuntu', sans-serif;
@@ -64,7 +64,7 @@ p{font-size: 0.75em;}
 }
 
 .content-padding-top{
-  padding-top: 3em;
+  padding-top: 40px;
 }
 .section-box{
   min-height: 100vh;
@@ -77,7 +77,7 @@ p{font-size: 0.75em;}
   top: 0;
   left: 0;
   right: 0;
-  min-height: 6vh;
+  min-height: 40px;
   padding: 0 1vw 0 1vw;
   z-index: 100;
 }
@@ -125,6 +125,54 @@ p{font-size: 0.75em;}
   min-width: 16.6%;
 }
 
+/* DASHBOARD VIEW HANDLER ##################################### */
+
+#dashboard{
+  background-color: var(--color-green-pale);
+}
+
+#dashboard h5{
+  color: var(--color-green-pale);
+  font-size: 1.05em;
+}
+
+#dashboard .sidebar{
+  min-height: 10vh;
+  background-color: var(--color-green-dark);
+  border-bottom: 3px solid var(--dark);
+}
+
+#dashboard .panel-item-content{
+  font-size: 0.7em;
+}
+
+#dashboard .panel-item-border-right{
+  border-right: 1px var(--light) solid;
+}
+
+#dashboard a{
+  color: var(--color-green-pale)!important;
+}
+#dashboard a:hover{
+  color: var(--color-green-alt)!important;
+}
+
+/* breakpoint  sm */
+@media(min-width: 576px){
+
+  #dashboard .panel-item-content{
+    font-size: 0.85em;
+  }
+
+  #dashboard .panel-item-border-right{
+    border: 0;
+  }
+  #dashboard .sidebar{
+    /* min-height: 50vh; */
+    border-radius: 0 0 0.5em 0;
+    border-right: 3px solid var(--dark);
+  }
+}
 /* BUTTON STYLING ##################################### */
 .btn-outline-info{
   border-color: var(--color-green-pale);

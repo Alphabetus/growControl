@@ -1,0 +1,4 @@
+Welcome to Grow Control.
+Your account has been created successfully and you can now login.
+
+Good luck with your grow!

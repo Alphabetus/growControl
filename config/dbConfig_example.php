@@ -4,7 +4,7 @@ function connectDB(){
   // SETTINGS FOR THE DB CONNECTION
   $dbLocal = "localhost";
   $dbUser = "username";
-  $dbPass = "1234"
+  $dbPass = "1234";
   $dbTableName = "tablename";
   // RUN > TEST AND RETRIEVE
   $con = mysqli_connect($dbLocal, $dbUser, $dbPass, $dbTableName);
@@ -13,7 +13,7 @@ function connectDB(){
     return;
   }
 
-  // return connection 
+  // return connection
   return $con;
 }
 ?>
