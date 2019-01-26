@@ -64,9 +64,13 @@ Apart from the referred stages, plants also have different status such as `alive
 If a plant dies you can define it as dead and store or delete it.
 
 
-### WEB APP STATUS:
-- DEVELOPMENT: [Progress](http://progressed.io/bar/15)
-- DEBUGGED: http://progressed.io/bar/0
+### WEB APP SYSTEM STATUS:
+- USERS: ![Progress](http://progressed.io/bar/35)
+- GROWS: ![Progress](http://progressed.io/bar/0)
+- PLANTS: ![Progress](http://progressed.io/bar/0)
+- GALLERY: ![Progress](http://progressed.io/bar/0)
+
+- OVERALL: ![Progress](http://progressed.io/bar/10)
 
 
 ### LIVE GROW CONTROL:
