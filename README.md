@@ -43,22 +43,22 @@ Grows can be created as `indoor` or `outdoors` and can be defined as `active` or
 The plant lifespan is divided into 4 stages to better organise your garden.
 The main definition should be seen as a guidance tip and not a required parameter.
 
-1. Seedling stage;
-  - Covers the germination time before the plant unfolds and gets exposed to the light.
-  - It is triggered manually by the user.
+1. **Seedling stage;**
+      - Covers the germination time before the plant unfolds and gets exposed to the light.
+      - It is triggered manually by the user.
 
-2. Vegetative stage;
-  - Covers the entire growing process of the plant. It ends when the flowering stage starts and should be visible on naked eye.
-  - It is triggered manually by the user.
+2. **Vegetative stage;**
+      - Covers the entire growing process of the plant. It ends when the flowering stage starts and should be visible on naked eye.
+      - It is triggered manually by the user.
 
-3. Flora stage;
-  - Covers the period of time since the appearance of flower/fruit until the harvesting time.
-  - This stage can occur automatically or it can be forced.
-  - It is triggered manually by the user.
+3. **Flora stage;**
+      - Covers the period of time since the appearance of flower/fruit until the harvesting time.
+      - This stage can occur automatically or it can be forced.
+      - It is triggered manually by the user.
 
-4. Harvesting stage;
-  - This stage should cover all the remaining cycle of the plant.
-  - Useful to keep track of drying and curation times.
+4. **Harvesting stage;**
+      - This stage should cover all the remaining cycle of the plant.
+      - Useful to keep track of drying and curation times.
 
 Apart from the referred stages, plants also have different status such as `alive`, `dead`, etc.
 If a plant dies you can define it as dead and store or delete it.
@@ -69,8 +69,8 @@ If a plant dies you can define it as dead and store or delete it.
 - **GROWS:** ![Progress](http://progressed.io/bar/0)
 - **PLANTS:** ![Progress](http://progressed.io/bar/0)
 - **GALLERY:** ![Progress](http://progressed.io/bar/0)  
-</a>
-**OVERALL:** ![Progress](http://progressed.io/bar/10)
+- **OVERALL:** ![Progress](http://progressed.io/bar/10)
+
 
 
 ### LIVE GROW CONTROL:
