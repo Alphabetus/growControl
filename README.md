@@ -69,8 +69,7 @@ If a plant dies you can define it as dead and store or delete it.
 - **GROWS:** ![Progress](http://progressed.io/bar/0)
 - **PLANTS:** ![Progress](http://progressed.io/bar/0)
 - **GALLERY:** ![Progress](http://progressed.io/bar/0)  
-
-
+</a>
 - **OVERALL:** ![Progress](http://progressed.io/bar/10)
 
 
