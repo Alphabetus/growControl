@@ -1,6 +1,6 @@
 # GROW CONTROL
 
-##### What is this?
+## What is this?
 
 This is an anonymous and open-sourced, non intrusive, multi-user grow log system.
 Once released you will be able to keep accurate track of many different aspects of your grows, such as temperature, humidity, last watering time, etc.
@@ -11,7 +11,7 @@ As a user you will be able to add as many grows as you need and assign as many p
 
 The objective is to provide the final user the ability to use the webApp online or locally on his own web server.
 
-##### What kind of data is required by the registration system? What info does the server reads from my device?
+### What kind of data is required by the registration system? What info does the server reads from my device?
 
 Grow Control is built around the idea of minimal data collection.
 The required data to register on the platform, as it is coded, is a username and password.
@@ -30,7 +30,7 @@ This data is kept on the database **only while you are logged in**.
 As soon as you press the `logout button` the system immediately deletes any trace of your presence.
 It does not keep your ip or browser information as more than it is extremely necessary.
 
-##### Different grow types and status:
+### Different grow types and status:
 
 Grows are the definition used for a group of plants.
 Segregate your plant index within different grows according to their age, characteristics, colours, whatever you want.
@@ -38,7 +38,7 @@ The organisation is yours.
 
 Grows can be created as `indoor` or `outdoors` and can be defined as `active` or `inactive`.
 
-##### Different plant stages and status:
+### Different plant stages and status:
 
 The plant lifespan is divided into 4 stages to better organise your garden.
 The main definition should be seen as a guidance tip and not a required parameter.
@@ -65,12 +65,12 @@ If a plant dies you can define it as dead and store or delete it.
 
 
 ### WEB APP SYSTEM STATUS:
-- USERS: ![Progress](http://progressed.io/bar/35)
-- GROWS: ![Progress](http://progressed.io/bar/0)
-- PLANTS: ![Progress](http://progressed.io/bar/0)
-- GALLERY: ![Progress](http://progressed.io/bar/0)
+- **USERS:** ![Progress](http://progressed.io/bar/35)
+- **GROWS:** ![Progress](http://progressed.io/bar/0)
+- **PLANTS:** ![Progress](http://progressed.io/bar/0)
+- **GALLERY:** ![Progress](http://progressed.io/bar/0)  
 
-- OVERALL: ![Progress](http://progressed.io/bar/10)
+- **OVERALL:** ![Progress](http://progressed.io/bar/10)
 
 
 ### LIVE GROW CONTROL:
