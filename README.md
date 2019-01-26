@@ -65,7 +65,7 @@ If a plant dies you can define it as dead and store or delete it.
 
 
 ### WEB APP STATUS:
-- DEVELOPMENT: [Progress](http://progressed.io/bar/15)
+- DEVELOPMENT: ![Progress](http://progressed.io/bar/15)
 - DEBUGGED: http://progressed.io/bar/0
 
 
