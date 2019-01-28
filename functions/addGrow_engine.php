@@ -35,7 +35,7 @@ function genGrowSettings($settings){
 if (isset($_POST["grow_name"])){$input_growName = $_POST["grow_name"];} else {$input_growName = null;}
 if (isset($_POST["grow_description"])){$input_growBio = $_POST["grow_description"];} else {$input_growBio = null;}
 if (isset($_POST["grow_area"])){$input_growArea = $_POST["grow_area"];} else {$input_growArea = null;}
-if (isset($_POST["grow_volume"])){$input_growVolume = $_POST["grow_volume"];} else {$input_growVolume = null;}
+if (isset($_POST["grow_height"])){$input_growHeight = $_POST["grow_height"];} else {$input_growHeight = null;}
 if (isset($_POST["grow_date"])){$input_growDate = $_POST["grow_date"];}
 
 // NOTE: Create grow function
@@ -48,7 +48,7 @@ function addGrow($settingsAvailable){
   $growDate = mysqli_real_escape_string($con, $_POST["grow_date"]);
   $growType = mysqli_real_escape_string($con, $_POST["grow_type"]);
   $growArea = mysqli_real_escape_string($con, $_POST["grow_area"]);
-  $growVolume = mysqli_real_escape_string($con, $_POST["grow_volume"]);
+  $growHeight = mysqli_real_escape_string($con, $_POST["grow_height"]);
   // initialze tracking stuff
   $track_temp = 0; $track_hum = 0; $track_co2 = 0;
   // double check for defined settings.. otherwise if empty it buggs out.
@@ -101,9 +101,9 @@ function addGrow($settingsAvailable){
   if ($growArea > 999 || $growArea < 0){
     array_push($errors, "wrong value for area given");
   }
-  // validate grow volume
-  if ($growVolume > 999 || $growArea < 0){
-    array_push($errors, "wrong value for volume given");
+  // validate grow Height
+  if ($growHeight > 999 || $growArea < 0){
+    array_push($errors, "wrong value for height given");
   }
 
   // NOTE: Validations are done. lets check for any value on errors array
@@ -119,6 +119,8 @@ function addGrow($settingsAvailable){
     $growStartDate = strtotime($growDate);
     $growStatus = 1;
     // prepare query
+    $growArea = round($growArea, 2);
+    $growHeight = round($growHeight, 2);
     $insertGrowQuery = mysqli_query($con,
     "INSERT INTO grow_table (
       grow_user_id,
@@ -127,7 +129,7 @@ function addGrow($settingsAvailable){
       grow_start_date,
       grow_type,
       grow_area,
-      grow_volume,
+      grow_height,
       grow_tracks_temperature,
       grow_tracks_humidity,
       grow_tracks_co2,
@@ -139,7 +141,7 @@ function addGrow($settingsAvailable){
       $growStartDate,
       '$growType',
       $growArea,
-      $growVolume,
+      $growHeight,
       $track_temp,
       $track_hum,
       $track_co2,

@@ -1,5 +1,15 @@
 # Changelog  
 
+### [v0.4] > Individual grow view and controller & bug fixes
+
+- Fix bug on `grows_engine` on empty grow grid scenario.
+- Fix bug blocking correct menu usage under some resolutions.
+- Change `grow volume` to `grow height` to simplify usability and patch all required engines and views.
+- Patch `general_engine` to face the new demands.
+- Introduce `room_engine` and view to control & display individual room information.
+- Define default grow avatar.
+- Patch `theme01` to format new views available.
+
 ### [v0.3] > Grow index system front and back & dynamic validation on registration
 
 - Introduce ajax requests for dynamic data handling on registration form.

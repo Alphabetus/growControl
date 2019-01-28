@@ -6,6 +6,7 @@
   --color-green-light: #82B79B;
   --color-green-alt: #B5BA72;
   --color-green-pale: #EBF2EA;
+  --color-green-text: #2d3a33;
   --color-blue-light: #AFCCC1;
   /* TRANSITION STUFF  */
   --transition-all-01: all 0.6s ease-in-out;
@@ -163,7 +164,7 @@ p{font-size: 0.75em;}
 }
 @media(min-width: 576px){
   .sidebar-container{
-    max-height: 53vh;
+    max-height: 325px;
     border-radius: 0 0 0.5em 0;
     border-right: 3px solid var(--dark);
   }
@@ -200,14 +201,72 @@ p{font-size: 0.75em;}
   background-color: var(--color-green-pale);
 }
 
+/* ROOM VIEW HANDLE ##################################### */
+#room{
+  min-height: 100vh;
+}
+
+
+.room-container{
+  background-color: var(--color-blue-light);
+}
+
+.room-header, .room-type {
+  color: var(--color-green-dark);
+}
+
+.room-description{
+  font-style: italic;
+}
+
+.room-type-tracks-icon{
+  font-size: 1.2em;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+}
+
+.room-display-container{
+  min-height: 30vh;
+}
+
+.room-display-image-container{
+  overflow: hidden;
+  border: 2px var(--light) solid;
+}
+
+.room-display-image{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+}
+
+.room-display-info{
+  color: var(--color-green-text);
+}
+
+.room-tracks-header, .room-logs-header{
+  color: var(--color-green-dark);
+}
+
+.room-tracks-item{
+  color: var(--color-green-text);
+}
+
 /* NOTE:
 this selector defines the default PANEL styling for all views. overides should be performed below. */
 
 /* PANEL GRID HANDLER ##################################### */
 
 .panel-container{
+  position: relative;
   background-color: var(--color-blue-light);
   height: 35vh;
+  opacity: 0.63;
+  overflow: hidden;
+  /* fx */
+  transition: var(--transition-all-02);
 }
 
 .panel-container-inner{
@@ -219,7 +278,7 @@ this selector defines the default PANEL styling for all views. overides should b
 }
 
 .panel-header-content{
-  font-size: 1.1em;
+  font-size: 0.9em;
 }
 
 .panel-button{
@@ -233,6 +292,21 @@ this selector defines the default PANEL styling for all views. overides should b
 
 .panel-button:hover{
   font-size: 4.93em;
+}
+
+/* panel linking handling  */
+.panel-link:hover{
+  opacity: 1;
+}
+
+@media(min-width: 1080px){
+  .panel-link:hover{
+    transform: scale(1.02);
+  }
+
+  .panel-header-content{
+    font-size: 1.1em;
+  }
 }
 
 /* FORMS HANDLING  */

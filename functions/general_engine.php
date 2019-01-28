@@ -86,6 +86,22 @@ function logoutUser($uID){
   return;
 }
 
+// // NOTE: Keep users out of the rooms that are not theirs
+function roomLock(){
+  $con = connectDB();
+  // get user session var
+  $userID = mysqli_real_escape_string($con, $_SESSION["user_id"]);
+  $roomID = mysqli_real_escape_string($con, $_GET["room"]);
+  // query to check if user owns room
+  $checkQuery = mysqli_query($con, "SELECT grow_id, grow_user_id FROM grow_table WHERE grow_user_id = '$userID' AND grow_id = '$roomID'");
+  // count matces > to be true must be === 1 > else redirects user to grows view. just like that.
+  // no info if the room exists or whatever else.
+  // he simply shouldn't be there.
+  if (mysqli_num_rows($checkQuery) != 1){
+    header("Location: ?view=grows");
+  }
+}
+
 // NOTE: Function to keep logged in users out of authenticated areas
 function lock(){
   // get DB
@@ -138,6 +154,20 @@ function getViewTitle(){
     // there is only 1 word.
     // lets uppercase.
     $viewName = strtoupper($viewArray[0]);
+  }
+
+  // NOTE: Lets check if we are on a grow room > if we are, lets give the room name instead of the default view name
+  if ($_GET["view"] === "grow"){
+    // get db
+    $con = connectDB();
+    // prepare query
+    $gID = mysqli_real_escape_string($con, $_GET["room"]);
+    $roomNameQuery = mysqli_query($con, "SELECT grow_id, grow_name FROM grow_table WHERE grow_id = '$gID'");
+    // fetch grow name
+    $gArray = mysqli_fetch_array($roomNameQuery);
+    $gName = $gArray["grow_name"];
+    // output the grow room name and override previous setting
+    $viewName = $gName;
   }
 
   return $viewName;

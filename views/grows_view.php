@@ -26,15 +26,15 @@ include "functions/grows_engine.php";
       <!-- default grid square > add grow -->
       <div class="col-6 col-md-4 col-xl-3 m-0 p-0">
 
-        <div class="row panel-container shadow-sm border rounded m-0 m-md-2 m-lg-3 p-0">
+        <a href="?view=addGrow" class="row panel-container panel-link shadow-sm border rounded m-0 m-md-2 m-lg-3 p-0">
           <div class="col-12 m-0 p-2 align-self-center panel-container-inner text-center">
-            <a href="?view=addGrow">
+            <!-- <a href="?view=addGrow"> -->
               <span class="panel-button">
                 <i class="fas fa-plus-circle"></i>
               </span>
-            </a>
+            <!-- </a> -->
           </div>
-        </div>
+        </a>
 
       </div>
       <!-- /default grid square > add grow -->
@@ -45,17 +45,16 @@ include "functions/grows_engine.php";
               $growAge = getAge($grow["grow_start_date"]);
               print '
                 <div class="col-6 col-md-4 col-xl-3 m-0 p-0">
-                  <div class="row panel-container shadow-sm border rounded m-0 m-md-2 m-lg-3 p-0">
+                  <a href="?view=grow&room='. $grow["grow_id"] .'" class="row panel-container panel-link shadow-sm border rounded m-0 m-md-2 m-lg-3 p-0 text-truncate">
 
                     <div class="col-12 m-0 p-2 panel-container-inner">
                       <div class="row justify-content-center">
 
-                        <div class="col-12 panel-header-container text-center">
-                          <h5 class="panel-header-content">'. $grow["grow_name"] .'</h5>
-                          <hr class="bg-light">
+                        <div class="col-12 panel-header-container text-center border-bottom">
+                          <h5 class="panel-header-content text-truncate">'. $grow["grow_name"] .'</h5>
                         </div>
 
-                        <div class="col-12 m-0 p-0 panel-body-container mt-2">
+                        <div class="col-12 m-0 p-0 panel-body-container pt-2">
 
                           <div class="col-12 m-0 p-0 panel-body-item">
                             <i class="fas fa-birthday-cake"></i>&nbsp;Age : '. $growAge .' days
@@ -69,6 +68,14 @@ include "functions/grows_engine.php";
                             <i class="fas fa-grip-vertical"></i>&nbsp;Type : '. $grow["grow_type"] .'
                           </div>
 
+                          <div class="col-12 m-0 p-0 panel-body-item">
+                            <i class="far fa-square"></i>&nbsp;Area : '. $grow["grow_area"] .'&#x33a1;
+                          </div>
+
+                          <div class="col-12 m-0 p-0 panel-body-item">
+                            <i class="fas fa-arrows-alt-v"></i>&nbsp;Height : '. $grow["grow_height"] .'m
+                          </div>
+
                           '. growTemperature($grow["grow_id"], $grow["grow_tracks_temperature"]) .'
 
                           '. growHumidity($grow["grow_id"], $grow["grow_tracks_humidity"]) .'
@@ -78,7 +85,7 @@ include "functions/grows_engine.php";
                       </div>
                     </div>
 
-                  </div>
+                  </a>
                 </div>
               ';
           }

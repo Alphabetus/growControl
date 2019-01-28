@@ -93,8 +93,8 @@ if (isset($_POST["grow_name"])){
           </div>
 
           <div class="col-6 col-md-4 col-lg-3 col-xl-2 m-0 p-0 mt-2">
-            <label for="grow-area-input">volume</label>
-            <input id="grow-area-input" type="number" step="0.01" class="form-control w-50" value="<?php print $input_growVolume; ?>" min="0" max="999" name="grow_volume" placeholder="0 m&#xb3;">
+            <label for="grow-area-input">height</label>
+            <input id="grow-area-input" type="number" step="0.01" class="form-control w-50" value="<?php print $input_growHeight; ?>" min="0" max="999" name="grow_height" placeholder="0 m">
           </div>
 
         </div>
