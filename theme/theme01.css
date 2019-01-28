@@ -6,8 +6,10 @@
   --color-green-light: #82B79B;
   --color-green-alt: #B5BA72;
   --color-green-pale: #EBF2EA;
+  --color-blue-light: #AFCCC1;
   /* TRANSITION STUFF  */
   --transition-all-01: all 0.6s ease-in-out;
+  --transition-all-02: all 150ms ease-in-out;
 }
 
 
@@ -69,6 +71,10 @@ p{font-size: 0.75em;}
 .section-box{
   min-height: 100vh;
 }
+
+.form-control{
+  text-align: center;
+}
 /* MENU STUFF ###################################### */
 
 /* base menu configs  */
@@ -125,54 +131,116 @@ p{font-size: 0.75em;}
   min-width: 16.6%;
 }
 
-/* DASHBOARD VIEW HANDLER ##################################### */
-
-#dashboard{
-  background-color: var(--color-green-pale);
+.register-error{
+  font-size: 0.6em;
+  display: none;
 }
 
-#dashboard h5{
+
+/* SIDEBAR HANDLER ####################################### */
+.sidebar-title{
   color: var(--color-green-pale);
   font-size: 1.05em;
 }
 
-#dashboard .sidebar{
+.sidebar-container a{
+  color: var(--color-green-pale)!important;
+}
+.sidebar-container a:hover{
+  color: var(--color-green-alt)!important;
+}
+
+.sidebar-item-content{
+  font-size: 0.7em;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
+.sidebar-container{
   min-height: 10vh;
   background-color: var(--color-green-dark);
   border-bottom: 3px solid var(--dark);
 }
-
-#dashboard .panel-item-content{
-  font-size: 0.7em;
-}
-
-#dashboard .panel-item-border-right{
-  border-right: 1px var(--light) solid;
-}
-
-#dashboard a{
-  color: var(--color-green-pale)!important;
-}
-#dashboard a:hover{
-  color: var(--color-green-alt)!important;
-}
-
-/* breakpoint  sm */
 @media(min-width: 576px){
-
-  #dashboard .panel-item-content{
-    font-size: 0.85em;
-  }
-
-  #dashboard .panel-item-border-right{
-    border: 0;
-  }
-  #dashboard .sidebar{
-    /* min-height: 50vh; */
+  .sidebar-container{
+    max-height: 53vh;
     border-radius: 0 0 0.5em 0;
     border-right: 3px solid var(--dark);
   }
+  .sidebar-item-content{
+    font-size: 0.85em;
+  }
 }
+
+/* SECTION HEADER HANDLER ##################################### */
+#section-header-sm{
+  position: fixed;
+  top: 0;
+  left: 25%;
+  width: 50%;
+  z-index: 200;
+  height: 40px;
+  color: var(--color-green-light);
+  font-size: 0.9em;
+}
+
+#section-header-xs{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  white-space: nowrap;
+  word-break: keep-all;
+  height: 40px;
+  font-size: 0.7em;
+}
+
+/* DASHBOARD VIEW HANDLER ##################################### */
+#dashboard{
+  background-color: var(--color-green-pale);
+}
+
+/* NOTE:
+this selector defines the default PANEL styling for all views. overides should be performed below. */
+
+/* PANEL GRID HANDLER ##################################### */
+
+.panel-container{
+  background-color: var(--color-blue-light);
+  height: 35vh;
+}
+
+.panel-container-inner{
+  color: var(--color-green-dark);
+}
+
+.panel-body-item{
+  font-size: 0.85em;
+}
+
+.panel-header-content{
+  font-size: 1.1em;
+}
+
+.panel-button{
+  color: var(--color-green-pale);
+  -webkit-text-stroke: 2px var(--color-green-light);
+  font-size: 5em;
+  /* fx */
+  transition: var(--transition-all-01);
+  -webkit-transition: var(--transition-all-02);
+}
+
+.panel-button:hover{
+  font-size: 4.93em;
+}
+
+/* FORMS HANDLING  */
+#form-add .mandatory-field{
+  vertical-align: text-top;
+  font-size: 0.7em;
+}
+
 /* BUTTON STYLING ##################################### */
 .btn-outline-info{
   border-color: var(--color-green-pale);

@@ -120,4 +120,41 @@ function lock(){
   // done
   return;
 }
+
+
+// NOTE: function to retrieve view title
+function getViewTitle(){
+  // divide string into array, exploding on the first uppercase.
+  $viewArray = preg_split('/(?=[A-Z])/',$_GET["view"]);
+  // count the number of words
+  $numberOfWords = count($viewArray);
+  // format accordingly
+  if ($numberOfWords > 1){
+    // there is 2 words.
+    //lets uppercase all and merge them into single string with a space in between.
+    $viewName = strtoupper($viewArray[0] . " " . $viewArray[1]);
+  }
+  else{
+    // there is only 1 word.
+    // lets uppercase.
+    $viewName = strtoupper($viewArray[0]);
+  }
+
+  return $viewName;
+}
+
+
+// NOTE: Retrieve age based on given unix timestamp. Age is calculated based on time()
+// output is in days. with 1 decimal value.
+function getAge($timestamp){
+  $now = time();
+  $diff = $now - $timestamp;
+  // we got diff > lets get minutes > hours > days
+  $minutes = $diff / 60;
+  $hours = $minutes / 60;
+  $days = round(($hours / 24), 1);
+
+  // return days
+  return $days;
+}
 ?>

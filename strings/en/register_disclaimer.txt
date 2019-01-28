@@ -1,0 +1,5 @@
+In order to maximise the anonymity of our users and bring back the essential user usability without intrusive requests, we do not require an email address to register.
+
+<span class='text-warning'>Please be advised that your account is not recoverable if you loose your password!</span>
+
+This is <strong>not</strong> a social network, this is your private grow log.

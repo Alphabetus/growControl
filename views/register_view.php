@@ -34,17 +34,27 @@ if (isset($_POST["username"])){
 
         <div class="form-group">
           <label for="username_field">username</label>
-          <input name="username" type="text" class="form-control" id="username_field" required>
+          <input name="username" minlength="4" maxlength="16" type="text" class="form-control" id="username_field" placeholder="between 4 and 16 characters " required>
+          <div class="username-picked text-warning register-error mt-1">username already in use</div>
         </div>
 
         <div class="form-group">
           <label for="username_field">password</label>
-          <input name="password" type="password" class="form-control" id="password_field" required>
+          <input name="password" type="password" class="form-control" id="password_field" placeholder="between 6 and 32 characters" required>
         </div>
 
         <div class="form-group">
           <label for="password_confirm_field">re-type password</label>
-          <input name="password_confirm" type="password" class="form-control" id="password_confirm_field" required>
+          <input name="password_confirm" type="password" class="form-control" id="password_confirm_field" placeholder="please confirm your password" required>
+          <div class="text-warning register-error mt-1 passwords-dont-match">passwords given must match</div>
+        </div>
+
+        <div class="row justify-content-center m-0 p-0 mt-2">
+          <div class="col-12 m-0 p-0 register-disclaimer">
+            <p class="text-justify">
+              <?php getString("register_disclaimer", "en"); ?>
+            </p>
+          </div>
         </div>
 
         <div class="col-12 text-right m-0 p-0">
@@ -52,7 +62,7 @@ if (isset($_POST["username"])){
           <a href="?view=login" class="btn btn-sm btn-outline-info btn-auth">login</a>
           <button type="submit" class="btn btn-sm btn-outline-info btn-auth">register</button>
         </div>
-        <div class="col-12 text-center text-warning m-0 p-0">
+        <div class="col-12 text-center text-warning m-0 p-0 mb-5">
           <?php print $registerOutput; ?>
         </div>
 

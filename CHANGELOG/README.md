@@ -1,5 +1,17 @@
 # Changelog  
 
+### [v0.3] > Grow index system front and back & dynamic validation on registration
+
+- Introduce ajax requests for dynamic data handling on registration form.
+- Validate registration form according to syntax and username availability.
+- Add `grow_engine`, `addGrow_engine` and frontend design for the respective views.
+- Introduce new partial, `section_header`.
+- Patch navigation bars to display current page title.
+- Patch sidebar to improve user usability.
+- Patch `theme01` to face new and future demands with `.panel-container-*` creation for dashboard panels handling.
+- Add new string files.
+- Patch `general_engine` to face the new demands.
+
 ### [v0.2] > User creation, authentication & permission engine. Frontend patch to face new views
 
 - Fix `dbConfig_example.php`.

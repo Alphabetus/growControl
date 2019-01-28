@@ -1,8 +1,4 @@
-<?php
-// this is the menu navigation partial
-?>
-
-<nav id="menu" class="navbar navbar-expand-lg navbark-dark bg-dark">
+<nav id="menu" class="navbar navbar-expand-md navbark-dark bg-dark">
   <a class="navbar-brand" href="/"><i class="fas fa-cannabis"></i></a>
 
   <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#menuBar" aria-controls="menuBar" aria-expanded="false" aria-label="Toggle menu bar">

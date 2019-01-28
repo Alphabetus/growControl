@@ -1,4 +1,4 @@
-<nav id="menu" class="navbar navbar-expand-lg navbark-dark bg-dark">
+<nav id="menu" class="navbar navbar-expand-md navbark-dark bg-dark">
   <a class="navbar-brand" href="?view=dashboard"><i class="fas fa-cannabis"></i>&nbsp;<?php print strtolower($_SESSION["user_name"]);?> - grow</a>
 
   <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#menuBar" aria-controls="menuBar" aria-expanded="false" aria-label="Toggle menu bar">
