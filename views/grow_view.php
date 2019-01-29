@@ -2,7 +2,8 @@
 // validate user authentication > keep out the ones who do not!
 // Must have this on all authenticated pages in worder to keep the system safe.
 lock();
-
+// lock room to owner
+roomLock();
 // require local engine
 require "functions/room_engine.php";
 ?>
@@ -11,6 +12,8 @@ require "functions/room_engine.php";
 <?php include "partials/section_header.php"; print $section_header_sm; ?>
 <!-- /section header -->
 
+<!-- link local scripts -->
+<script type="text/javascript" src="js/room.js"></script>
 
 <div id="room" class="content-padding-top row">
 
@@ -29,29 +32,92 @@ require "functions/room_engine.php";
       -->
 
       <!-- col 1 > action box -->
-      <div class="col-12 col-md-4 col-lg-3 col-xl-2 m-0 p-0 border room-container-inner room-container-action">
-        [button A]<br>
-        [button B]<br>
-        [button C]<br>
-        [button D]<br>
+      <div id="actions" class="col-12 col-md-4 col-lg-3 col-xl-2 m-0 p-0 room-container-inner room-container-action collapse">
+
+        <!-- action header -->
+        <div class="row m-0 p-0 pt-3">
+
+          <div class="col-12 room-container-action-header">
+            <h3 class="text-left text-md-center"><i class="fas fa-tools text-secondary"></i>&nbsp;<strong>TOOLS</strong>&nbsp;<i class="fas fa-tools fa-flip-horizontal text-secondary"></i></h3>
+          </div>
+
+        </div>
+        <!-- /action header -->
+
+        <div class="row m-0 p-0 room-container-action-innser justify-content-around">
+
+
+          <?php
+          // NOTE: Generate the action buttons and print them accordingly
+
+
+          foreach ($roomTrackButtons as $button) {
+            print '
+              <!-- action item -->
+              <div class="col-12 m-0 p-2 pt-3 text-center">
+                '. $button .'
+              </div>
+              <!-- /action item -->
+            ';
+          }
+          ?>
+
+          <!-- default actions -->
+
+          <!-- edit grow -->
+          <div class="col-12 m-0 p-2 pt-3 text-center">
+            <a href="?view=editGrow&room=<?php print $_GET["room"]; ?>" class="btn btn-sm btn-outline-primary text-left w-100"><i class="far fa-edit"></i>&nbsp;edit grow</a>
+          </div>
+          <!-- /edit grow -->
+
+          <!-- delete grow -->
+          <div class="col-12 m-0 p-2 pt-3 text-center">
+            <a href="#" class="btn btn-sm btn-outline-danger text-left w-100"><i class="far fa-edit"></i>&nbsp;delete grow</a>
+          </div>
+          <!-- /delete grow -->
+
+          <!-- /default actions -->
+
+        </div>
+
+
       </div>
+      <!-- /col 1 > action box -->
 
       <!-- col 2 > info box -->
-      <div class="col-12 col-md-8 col-lg-9 col-xl-10 m-0 p-0 border room-container-inner room-container-info">
+      <div class="col-12 col-sm p-0 border-left room-container-inner room-container-info">
 
         <!-- header row -->
         <div class="row m-0 p-0">
-          <div class="col-11 room-header m-0 p-0 px-2 px-md-3 pt-2">
-            <h3><i class="fas fa-campground"></i><?php print ucfirst($roomData["grow_name"]); ?></h3>
+          <!-- open tool box button -->
+          <div class="col-1 m-0 p-0 pt-2 text-center">
+
+            <a id="action-control" class="btn btn-sm btn-outline-primary w-75 rounded" data-toggle="collapse" data-target="#actions">
+              <i class="fas fa-tools"></i>
+            </a>
+
           </div>
+          <!-- /open tool box button -->
+
+          <!-- room title -->
+          <div class="col-10 room-header m-0 p-0 px-2 px-md-3 pt-2">
+            <h3 class="text-center"><i class="fas fa-campground"></i><?php print ucfirst($roomData["grow_name"]); ?></h3>
+          </div>
+          <!-- /room title -->
+
+          <!-- go back button -->
           <div class="col-1 room-close m-0 p-0 text-center align-self-center">
-            <a href="?view=grows" class="btn btn-outline-info btn-sm rounded"><i class="fas fa-undo"></i></a>
+            <a href="?view=grows" class="btn btn-outline-primary btn-sm rounded w-75"><i class="fas fa-undo"></i></a>
           </div>
+          <!-- /go back button -->
+
         </div>
+        <!-- /header row -->
 
         <!-- description row -->
         <div class="row m-0 p-0 px-2 px-md-3 room-description">
-          <p class="text-justify text-muted">
+
+          <p class="text-justify text-muted px-5">
             <?php print ucfirst($roomData["grow_description"]); ?>
           </p>
 
@@ -60,133 +126,33 @@ require "functions/room_engine.php";
 
         <hr class="bg-light">
 
-        <!-- grow type , age and logs display -->
-        <div class="row m-0 p-0 px-2 px-md-3 room-type">
-
-          <!-- type -->
-          <div class="col-4 m-0 p-0">
-            <h4 class="text-justify align-self-center col m-0 p-0">
-              <?php print ucfirst($roomData["grow_type"]); ?>s <!-- add an S to the default type  -->
-            </h4>
-          </div>
-
-          <!-- age -->
-          <div class="col-4 m-0 p-0 text-center align-self-center">
-            <i class="far fa-clock"></i> <?php print $roomAge; ?> days
-          </div>
-
-          <!-- log tracks -->
-          <div class="col-4 m-0 p-0 text-right room-type-tracks align-self-center">
-            <?php
-            // NOTE: print icon array for tracks info
-            foreach ($roomTrackIcons as $icon) {
-              print $icon;
-            }
-            ?>
-          </div>
-
-        </div>
-        <!-- grow type , age and logs display -->
+        <!-- grow type , age and tracks display -->
+        <?php include "partials/grow_type_tracks.php"; ?>
+        <!-- end of grow type , age and tracks display -->
 
         <hr class="bg-light">
 
         <!-- GRID 2x >> last pick && Relevant info -->
-        <div class="row m-0 p-0 px-2 px-md-3 room-display-container">
-
-          <!-- default pic >> last from DB -->
-          <div class="col-5 col-md-4 col-lg-3 m-0 p-1">
-
-            <div class="col-12 p-0 room-display-image-container h-100 rounded border">
-              <img src="img/grow_default.jpg" class="room-display-image"/>
-            </div>
-
-          </div>
-
-          <!-- relevant info -->
-          <div class="col-7 col-md-8 col-lg-9 p-0 room-display-info-continer">
-            <div class="col-12 m-0 p-2 room-display-info">
-
-              <!-- info list -->
-              <ul class="list-group">
-                <!-- start date -->
-                <li class="list-group-item bg-transparent border rounded"><i class="far fa-calendar-alt"></i> start date : <?php print date("d-M-Y H:i", $roomData["grow_start_date"]); ?></li>
-                <!-- sizing >> height and area -->
-                <li class="list-group-item bg-transparent border rounded">
-                  <div class="row m-0 p-0">
-                    <!-- area -->
-                    <div class="col-12 col-lg-6 m-0 p-0">
-                      <i class="far fa-square"></i> area : <?php print $roomData["grow_area"]; ?>&#x33a1;
-                    </div>
-                    <!-- height -->
-                    <div class="col-12 col-lg-6 m-0 p-0">
-                      <i class="fas fa-arrows-alt-v"></i> height : <?php print $roomData["grow_height"]; ?>m
-                    </div>
-                  </div>
-                </li>
-                <!-- number of plants -->
-                <li class="list-group-item bg-transparent border rounded"><i class="fas fa-tree"></i><i class="fas fa-tree"></i> num of trees : 0</li>
-                <!-- status -->
-              </ul>
-            </div>
-          </div>
-
-        </div>
+        <?php include "partials/grow_grid_avatar_info.php"; ?>
         <!-- END OF GRID 2x >> last pick && Relevant info -->
 
         <hr class="bg-light">
 
         <!-- Tracks list -->
-        <div class="row m-0 p-0 px-2 px-md-3">
-          <div class="col-12 m-0 p-0 room-tracks-container">
-
-            <!-- header -->
-            <div class="row m-0 p-0">
-              <div class="col-12 m-0 p-0 room-tracks-header">
-                <h4>Grow statistics</h4>
-              </div>
-            </div>
-            <!-- /header -->
-
-            <!-- track list -->
-            <div class="row m-0 p-0">
-            <?php
-              // NOTE: loops value from array with key.
-              // key is the name of the active track, value is the... value.
-
-              foreach ($roomTrackValues as $track => $value) {
-                print '
-                  <div class="col-12 col-lg-4 m-0 p-0 room-tracks-item text-left text-lg-center">
-                    '. ucfirst($track) .' : '. $value .'
-                  </div>
-                ';
-              }
-            ?>
-            </div>
-            <!-- /track list -->
-
-          </div>
-        </div>
+        <?php include "partials/grow_tracks_list.php"; ?>
         <!-- end of tracks list -->
 
         <hr class="bg-light">
 
         <!-- text log entries -->
-        <div class="row m-0 p-0 px-2 px-md-3">
-          <div class="col-12 m-0 p-0 room-logs-container">
-
-            <!-- header -->
-            <div class="row m-0 p-0">
-              <div class="col-12 m-0 p-0 room-logs-header">
-                <h4>Grow text logs</h4>
-              </div>
-            </div>
-            <!-- /header -->
-
-            [listing with text notes added by users]
-
-          </div>
-        </div>
+        <?php include "partials/grow_log_entries.php"; ?>
         <!-- end of text log entries -->
+
+        <hr class="bg-light">
+
+        <!-- plant table -->
+        <?php include "partials/grow_plant_table.php"; ?>
+        <!-- end of plant table -->
 
       </div>
 

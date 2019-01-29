@@ -3,26 +3,30 @@
 // Must have this on all authenticated pages in worder to keep the system safe.
 lock();
 // include local engine
-include "functions/addGrow_engine.php";
+// NOTE: This view inherits other controllers instead of having its own
+// main function to edit the grow runs inside addgrow engine.
+
+include "functions/room_engine.php"; // inherits room engine
+include "functions/addGrow_engine.php"; // inherits add grow engine
 // format time default value for datetime-local input
 $timeInput = strftime('%Y-%m-%dT%H:%M', time());
 // initialize local vars
-$addGrowDisplay = array();
+$editGrowDisplay = array();
 $errorArray = array();
 // action > add grow submit
 if (isset($_POST["grow_name"])){
-  $addGrowDisplay = addGrow($settingsAvailable);
-  if ($addGrowDisplay === true){
+  $editGrowDisplay = editGrow($settingsAvailable);
+  if ($editGrowDisplay === true){
     // grow was successfully created > redirect to grows view
-    header("Location: ?view=grows");
+    header("Location: ?view=grows&room=" . $_GET["room"]);
   }
   else{
     // there was a problem with the grow creation > display errors
     // place on temp array
-    foreach ($addGrowDisplay as $error){
+    foreach ($editGrowDisplay as $error){
       array_push($errorArray, $error);
     }
-    $addGrowDisplay = $errorArray;
+    $editGrowDisplay = $errorArray;
   }
 }
 ?>
@@ -44,19 +48,19 @@ if (isset($_POST["grow_name"])){
       <!-- grow name -->
       <div class="form-group col-12 m-0 p-0">
         <label for="grow-name-input"><strong>grow name:</strong> <span class="mandatory-field text-danger">*</span></label>
-        <input id="grow-name-input" name="grow_name" type="text" class="form-control" minlength="4" maxlength="32" placeholder="between 4 and 32 characters" value="<?php print $input_growName; ?>" required>
+        <input id="grow-name-input" name="grow_name" type="text" class="form-control" minlength="4" maxlength="32" placeholder="between 4 and 32 characters" value="<?php print $roomData["grow_name"]; ?>" required>
       </div>
 
       <!-- grow start date -->
       <div class="form-group col-12 m-0 p-0">
         <label for="grow-start-input"><strong>grow start date and time:</strong> <span class="mandatory-field text-danger">*</span></label><br>
-        <input id="grow-start-input" name="grow_date" type="datetime-local" class="form-control" value="<?php if (isset($input_growDate)){print $input_growDate;} else{print $timeInput;} ?>" min="1990-01-01T00:00" required>
+        <input id="grow-start-input" name="grow_date" type="datetime-local" class="form-control" value="<?php print date("Y-m-d\TH:m", $roomData["grow_start_date"]) ?>" min="1990-01-01T00:00" required>
       </div>
 
       <!-- grow description -->
       <div class="form-group col-12 m-0 p-0">
         <label for="grow-description-input"><strong>grow bio:</strong></label>
-        <textarea id="grow-description-input" name="grow_description" class="form-control" minlength="4" maxlength="160" placeholder="between 4 and 160 characters"><?php print $input_growBio; ?></textarea>
+        <textarea id="grow-description-input" name="grow_description" class="form-control" minlength="4" maxlength="160" placeholder="between 4 and 160 characters"><?php print $roomData["grow_description"]; ?></textarea>
       </div>
 
       <!-- grow type -->
@@ -67,12 +71,12 @@ if (isset($_POST["grow_name"])){
 
         <div class="row m-0 px-4 justify-content-start mt-3">
           <div id="grow-type-radio" class="col-6 col-md-4 col-lg-3 col-xl-2 p-0 m-0 text-center text-md-left">
-            <input class="form-check-input" type="radio" name="grow_type" id="grow-type-input-A" value="indoor" checked="checked">
+            <input class="form-check-input" type="radio" name="grow_type" id="grow-type-input-A" value="indoor" <?php if($roomData["grow_type"] === "indoor"){print 'checked="checked"';} ?>>
             <label for="grow-type-input-A">indoor</label>
           </div>
 
           <div class="col-6 col-md-4 col-lg-3 col-xl-2 p-0 m-0 text-center text-md-left">
-            <input class="form-check-input" type="radio" name="grow_type" id="grow-type-input-B" value="outdoor">
+            <input class="form-check-input" type="radio" name="grow_type" id="grow-type-input-B" value="outdoor" <?php if($roomData["grow_type"] === "outdoor"){print 'checked="checked"';} ?>>
             <label for="grow-type-input-A">outdoor</label>
           </div>
 
@@ -89,12 +93,12 @@ if (isset($_POST["grow_name"])){
 
           <div class="col-6 col-md-4 col-lg-3 col-xl-2 m-0 p-0 mt-2">
             <label for="grow-area-input">area</label>
-            <input id="grow-area-input" type="number" step="0.01" class="form-control w-50" value="<?php print $input_growArea; ?>" min="0" max="999" name="grow_area" placeholder="0 m&#xb2;">
+            <input id="grow-area-input" type="number" step="0.01" class="form-control w-50" value="<?php print $roomData["grow_area"]; ?>" min="0" max="999" name="grow_area" placeholder="0 m&#xb2;">
           </div>
 
           <div class="col-6 col-md-4 col-lg-3 col-xl-2 m-0 p-0 mt-2">
             <label for="grow-area-input">height</label>
-            <input id="grow-area-input" type="number" step="0.01" class="form-control w-50" value="<?php print $input_growHeight; ?>" min="0" max="999" name="grow_height" placeholder="0 m">
+            <input id="grow-area-input" type="number" step="0.01" class="form-control w-50" value="<?php print $roomData["grow_height"]; ?>" min="0" max="999" name="grow_height" placeholder="0 m">
           </div>
 
         </div>
@@ -111,12 +115,12 @@ if (isset($_POST["grow_name"])){
 
           <div class="col-6 col-md-4 col-lg-3 col-xl-2 m-0 p-0 mt-2">
             <label for="grow-lamps-input">number</label>
-            <input id="grow-lamps-number-input" type="number" class="form-control w-50" value="<?php print $input_growLamps; ?>" min="0" max="999" name="grow_lamps" placeholder="0">
+            <input id="grow-lamps-number-input" type="number" class="form-control w-50" value="<?php print $roomData["grow_lamps"]; ?>" min="0" max="999" name="grow_lamps" placeholder="0">
           </div>
 
           <div class="col-6 col-md-4 col-lg-3 col-xl-2 m-0 p-0 mt-2">
             <label for="grow-lamps-input">power (total watts)</label>
-            <input id="grow-lamps-power-input" type="number" class="form-control w-50" value="<?php print $input_growPower; ?>" min="0" max="999999" name="grow_power" placeholder="0 w">
+            <input id="grow-lamps-power-input" type="number" class="form-control w-50" value="<?php print $roomData["grow_power"]; ?>" min="0" max="999999" name="grow_power" placeholder="0 w">
           </div>
 
         </div>
@@ -133,11 +137,11 @@ if (isset($_POST["grow_name"])){
 
           <div class="col-12 m-0 p-0 mt-2">
             <select name="grow_power_type" class="custom-select">
-              <option value="" selected> --- </option>
-              <option value="Mixed">Mixed</option>
-              <option value="Fluorescent (CFL)">Fluorescent (CFL)</option>
-              <option value="HID (MH & HPS)">HID (MH & HPS)</option>
-              <option value="LED">LED</option>
+              <option value="" <?php if ($roomData["grow_power_type"] === ""){print "selected";} ?> > --- </option>
+              <option value="Mixed" <?php if ($roomData["grow_power_type"] === "Mixed"){print "selected";} ?> >Mixed</option>
+              <option value="Fluorescent (CFL)" <?php if ($roomData["grow_power_type"] === "Fluorescent (CFL)"){print "selected";} ?> >Fluorescent (CFL)</option>
+              <option value="HID (MH & HPS)" <?php if ($roomData["grow_power_type"] === "HID (MH & HPS)"){print "selected";} ?> >HID (MH & HPS)</option>
+              <option value="LED" <?php if ($roomData["grow_power_type"] === "LED"){print "selected";} ?> >LED</option>
             </select>
           </div>
 
@@ -154,6 +158,7 @@ if (isset($_POST["grow_name"])){
           </div>
 
           <div class="col-12 m-0 p-0">
+            <?php  ?>
             <?php genGrowSettings($settingsAvailable) ?>
           </div>
 
@@ -164,7 +169,7 @@ if (isset($_POST["grow_name"])){
       <div class="row justify-content-center m-0 p-0">
         <div class="col-12 text-center text-danger">
           <?php // loop the error display
-          foreach ($addGrowDisplay as $display){
+          foreach ($editGrowDisplay as $display){
             print $display . ".<br>";
           }
 
@@ -180,7 +185,7 @@ if (isset($_POST["grow_name"])){
         </div>
 
         <div class="col-auto m-0 mb-5 p-0 d-inline pl-2">
-          <a href="?view=grows" class="btn btn-outline-danger rounded">cancel</a>
+          <a href="?view=grow&room=<?php print $_GET["room"]; ?>" class="btn btn-outline-danger rounded">cancel</a>
         </div>
       </div>
       <!-- /submit & cancel buttons -->

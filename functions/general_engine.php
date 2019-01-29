@@ -18,13 +18,13 @@ function getString($fileName, $lang){
 function getSplashTitle(){
   print '
     <h3 class="text-center">
-      <i class="fas fa-cannabis text-danger"></i>
-      <i class="fas fa-cannabis text-warning"></i>
-      <i class="fas fa-cannabis text-success"></i>
+      <i class="fas fa-leaf text-success"></i>
+      <i class="fas fa-leaf text-success"></i>
+      <i class="fas fa-leaf text-success"></i>
       Grow Control
-      <i class="fas fa-cannabis text-success"></i>
-      <i class="fas fa-cannabis text-warning"></i>
-      <i class="fas fa-cannabis text-danger"></i>
+      <i class="fas fa-leaf fa-flip-horizontal text-success"></i>
+      <i class="fas fa-leaf fa-flip-horizontal text-success"></i>
+      <i class="fas fa-leaf fa-flip-horizontal text-success"></i>
     </h3>
   ';
 }
@@ -187,4 +187,7 @@ function getAge($timestamp){
   // return days
   return $days;
 }
+
+
+
 ?>

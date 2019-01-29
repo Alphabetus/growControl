@@ -14,7 +14,7 @@ function getGrowsArray(){
     array_push($growArray, $row);
   }
   if (empty($growArray)){
-    // array is empty. return null
+    // array is empty. return empty array!
     return array();
   }
   else{

@@ -1,5 +1,14 @@
 # Changelog  
 
+### [v0.5 | 29/jan/19] > Grow system near completion & code cleanup
+
+- Add `tracks_table` on DB to store all the tracking systems independently from the scope they are called from.
+- Add ajax requests to allow real time statistics logging without additional page reloads.
+- Introduce `edit_grow` functionalities and view.
+- Add `jQuery-ui` library to implement some graphical effects.
+- Create several partials to host the code launched on `grow_view` to simplify maintenance and readability.
+- Patch `theme01` to face the new demands.
+
 ### [v0.4] > Individual grow view and controller & bug fixes
 
 - Fix bug on `grows_engine` on empty grow grid scenario.

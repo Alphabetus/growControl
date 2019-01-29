@@ -1,5 +1,5 @@
 <nav id="menu" class="navbar navbar-expand-md navbark-dark bg-dark">
-  <a class="navbar-brand" href="/"><i class="fas fa-cannabis"></i></a>
+  <a class="navbar-brand" href="/"><i class="fas fa-leaf"></i></a>
 
   <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#menuBar" aria-controls="menuBar" aria-expanded="false" aria-label="Toggle menu bar">
     <i class="fas fa-bars"></i>

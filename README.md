@@ -1,5 +1,12 @@
 # GROW CONTROL
 
+## WEB APP SYSTEM STATUS >> [UNRELEASED]:
+- **USERS:** ![Progress](http://progressed.io/bar/55)
+- **GROWS:** ![Progress](http://progressed.io/bar/99)
+- **PLANTS:** ![Progress](http://progressed.io/bar/0)
+- **GALLERY:** ![Progress](http://progressed.io/bar/0)  
+- **OVERALL:** ![Progress](http://progressed.io/bar/35)
+
 ## What is this?
 
 This is an anonymous and open-sourced, non intrusive, multi-user grow log system.
@@ -62,15 +69,6 @@ The main definition should be seen as a guidance tip and not a required paramete
 
 Apart from the referred stages, plants also have different status such as `alive`, `dead`, etc.
 If a plant dies you can define it as dead and store or delete it.
-
-
-### WEB APP SYSTEM STATUS:
-- **USERS:** ![Progress](http://progressed.io/bar/55)
-- **GROWS:** ![Progress](http://progressed.io/bar/90)
-- **PLANTS:** ![Progress](http://progressed.io/bar/0)
-- **GALLERY:** ![Progress](http://progressed.io/bar/0)  
-- **OVERALL:** ![Progress](http://progressed.io/bar/30)
-
 
 
 ### LIVE GROW CONTROL:

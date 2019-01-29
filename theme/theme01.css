@@ -201,6 +201,23 @@ p{font-size: 0.75em;}
   background-color: var(--color-green-pale);
 }
 
+/* ROOM ACTION HANDLER ##################################### */
+#action-control{
+
+  /* position: absolute; */
+}
+
+.room-container-action-header h3{
+  color: var(--color-green-dark);
+  font-size: 1.2em;
+}
+
+@media(max-width: 576px){
+  #actions{
+    border-bottom: 1px var(--color-green-dark) solid;
+  }
+}
+
 /* ROOM VIEW HANDLE ##################################### */
 #room{
   min-height: 100vh;
@@ -254,6 +271,9 @@ p{font-size: 0.75em;}
   color: var(--color-green-text);
 }
 
+.room-display-light-potency{
+  font-size: 75%;
+}
 /* NOTE:
 this selector defines the default PANEL styling for all views. overides should be performed below. */
 
@@ -326,6 +346,15 @@ this selector defines the default PANEL styling for all views. overides should b
   background-color: var(--color-green-pale);
 }
 
+.btn-outline-primary{
+  border-color: var(--color-green-dark)!important;
+  color: var(--color-green-dark)!important;
+}
+.btn-outline-primary:hover{
+  border-color: var(--color-green-dark)!important;
+  color: var(--color-green-pale)!important;
+  background-color: var(--color-green-dark)!important;
+}
 /* FOOTER STYLING ###################################### */
 
 footer{
