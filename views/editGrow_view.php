@@ -48,19 +48,19 @@ if (isset($_POST["grow_name"])){
       <!-- grow name -->
       <div class="form-group col-12 m-0 p-0">
         <label for="grow-name-input"><strong>grow name:</strong> <span class="mandatory-field text-danger">*</span></label>
-        <input id="grow-name-input" name="grow_name" type="text" class="form-control" minlength="4" maxlength="32" placeholder="between 4 and 32 characters" value="<?php print $roomData["grow_name"]; ?>" required>
+        <input id="grow-name-input" name="grow_name" type="text" class="form-control text-left" minlength="4" maxlength="32" placeholder="between 4 and 32 characters" value="<?php print $roomData["grow_name"]; ?>" required>
       </div>
 
       <!-- grow start date -->
       <div class="form-group col-12 m-0 p-0">
         <label for="grow-start-input"><strong>grow start date and time:</strong> <span class="mandatory-field text-danger">*</span></label><br>
-        <input id="grow-start-input" name="grow_date" type="datetime-local" class="form-control" value="<?php print date("Y-m-d\TH:m", $roomData["grow_start_date"]) ?>" min="1990-01-01T00:00" required>
+        <input id="grow-start-input" name="grow_date" type="datetime-local" class="form-control text-left" value="<?php print date("Y-m-d\TH:m", $roomData["grow_start_date"]) ?>" min="1990-01-01T00:00" required>
       </div>
 
       <!-- grow description -->
       <div class="form-group col-12 m-0 p-0">
         <label for="grow-description-input"><strong>grow bio:</strong></label>
-        <textarea id="grow-description-input" name="grow_description" class="form-control" minlength="4" maxlength="160" placeholder="between 4 and 160 characters"><?php print $roomData["grow_description"]; ?></textarea>
+        <textarea id="grow-description-input" name="grow_description" class="form-control text-left" minlength="4" maxlength="160" placeholder="between 4 and 160 characters"><?php print $roomData["grow_description"]; ?></textarea>
       </div>
 
       <!-- grow type -->
@@ -93,12 +93,12 @@ if (isset($_POST["grow_name"])){
 
           <div class="col-6 col-md-4 col-lg-3 col-xl-2 m-0 p-0 mt-2">
             <label for="grow-area-input">area</label>
-            <input id="grow-area-input" type="number" step="0.01" class="form-control w-50" value="<?php print $roomData["grow_area"]; ?>" min="0" max="999" name="grow_area" placeholder="0 m&#xb2;">
+            <input id="grow-area-input" type="number" step="0.01" class="form-control w-50 text-left" value="<?php print $roomData["grow_area"]; ?>" min="0" max="999" name="grow_area" placeholder="0 m&#xb2;">
           </div>
 
           <div class="col-6 col-md-4 col-lg-3 col-xl-2 m-0 p-0 mt-2">
             <label for="grow-area-input">height</label>
-            <input id="grow-area-input" type="number" step="0.01" class="form-control w-50" value="<?php print $roomData["grow_height"]; ?>" min="0" max="999" name="grow_height" placeholder="0 m">
+            <input id="grow-area-input" type="number" step="0.01" class="form-control w-50 text-left" value="<?php print $roomData["grow_height"]; ?>" min="0" max="999" name="grow_height" placeholder="0 m">
           </div>
 
         </div>
@@ -115,12 +115,12 @@ if (isset($_POST["grow_name"])){
 
           <div class="col-6 col-md-4 col-lg-3 col-xl-2 m-0 p-0 mt-2">
             <label for="grow-lamps-input">number</label>
-            <input id="grow-lamps-number-input" type="number" class="form-control w-50" value="<?php print $roomData["grow_lamps"]; ?>" min="0" max="999" name="grow_lamps" placeholder="0">
+            <input id="grow-lamps-number-input" type="number" class="form-control w-50 text-left" value="<?php print $roomData["grow_lamps"]; ?>" min="0" max="999" name="grow_lamps" placeholder="0">
           </div>
 
           <div class="col-6 col-md-4 col-lg-3 col-xl-2 m-0 p-0 mt-2">
             <label for="grow-lamps-input">power (total watts)</label>
-            <input id="grow-lamps-power-input" type="number" class="form-control w-50" value="<?php print $roomData["grow_power"]; ?>" min="0" max="999999" name="grow_power" placeholder="0 w">
+            <input id="grow-lamps-power-input" type="number" class="form-control w-50 text-left" value="<?php print $roomData["grow_power"]; ?>" min="0" max="999999" name="grow_power" placeholder="0 w">
           </div>
 
         </div>

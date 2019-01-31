@@ -1,5 +1,11 @@
 # Changelog  
 
+### [v0.8 | 31/jan/19] > Small fixes
+
+- Patch `room.js` to enhance input data validation.
+- Patch `addGrow_view` and `editGrow_view` to style input forms.
+
+
 ### [v0.7 | 31/jan/19] > Fix general grows display
 
 - Fix general grows view to display average optional grow statistics based on the given entries.
@@ -7,7 +13,7 @@
 ### [v0.6 | 31/jan/19] > Grow system completion
 
 - Add several `ajax_requests` files to handle with grow specific notes without reloading the page.
-- Patch `editGrow_engine` and `addGrow_engine` to better fit the needed requests and data handling.
+- Patch `addGrow_engine` to better fit the needed requests and data handling.
 - Severely patch `room.js` to accommodate all the require interactivity and ajax requests.
 - Add partial `grow_log_entries` to accommodate all log entries and better organise `grow_view`.
 - Add some strings to populate new areas.

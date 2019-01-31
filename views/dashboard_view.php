@@ -15,7 +15,7 @@ lock();
 
   <!-- dasboard content -->
   <div class="col-12 col-sm-8 col-md-9 col-lg-10 px-5 pt-2 pt-sm-3">
-    [PANEL STYLE >> RELEVANT INFORMATION ABOUT YOUR GROWS]
+    [ VIEW UNDER CONSTRUCTION ]
   </div>
   <!-- end of dasboard content -->
 

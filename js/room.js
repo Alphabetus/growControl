@@ -233,9 +233,7 @@ function addTrackLog(context){
   // format value to 2 decimal places
   trackValue = Number(trackValue).toFixed(2);
   // validate vars
-  if (trackValue <= dataMax && trackValue > dataMin && trackValue != ""){
-    // give the icon for the track
-
+  if (trackValue <= dataMax && trackValue > dataMin && trackValue != 0){
     // lets send ajax request to update DB
     jQuery.ajax({
     url: "ajax_requests/track_logs.php",
