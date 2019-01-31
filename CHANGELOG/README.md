@@ -1,5 +1,9 @@
 # Changelog  
 
+### [v0.7 | 31/jan/19] > Fix general grows display
+
+- Fix general grows view to display average optional grow statistics based on the given entries.
+
 ### [v0.6 | 31/jan/19] > Grow system completion
 
 - Add several `ajax_requests` files to handle with grow specific notes without reloading the page.
