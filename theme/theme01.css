@@ -76,6 +76,17 @@ p{font-size: 0.75em;}
 .form-control{
   text-align: center;
 }
+
+.note-input-label{
+  color: var(--color-green-text);
+  font-style: italic;
+}
+
+#input-note-length{
+  color: var(--danger);
+  font-style: italic;
+  font-size: 0.6em;
+}
 /* MENU STUFF ###################################### */
 
 /* base menu configs  */
@@ -202,17 +213,23 @@ p{font-size: 0.75em;}
 }
 
 /* ROOM ACTION HANDLER ##################################### */
-#action-control{
-
-  /* position: absolute; */
+#actions{
+  /* background-color: red; */
+  /* overflow: hidden; */
 }
+
+/* .room-container-action-close{
+  position: absolute;
+  top: 4px;
+  right: 10px;
+} */
 
 .room-container-action-header h3{
   color: var(--color-green-dark);
   font-size: 1.2em;
 }
 
-@media(max-width: 576px){
+@media(max-width: 768px){
   #actions{
     border-bottom: 1px var(--color-green-dark) solid;
   }
@@ -222,7 +239,6 @@ p{font-size: 0.75em;}
 #room{
   min-height: 100vh;
 }
-
 
 .room-container{
   background-color: var(--color-blue-light);
@@ -234,6 +250,11 @@ p{font-size: 0.75em;}
 
 .room-description{
   font-style: italic;
+}
+
+.description-bullet{
+  font-size: 0.3em;
+  vertical-align: middle;
 }
 
 .room-type-tracks-icon{
@@ -273,6 +294,58 @@ p{font-size: 0.75em;}
 
 .room-display-light-potency{
   font-size: 75%;
+}
+
+/* room modal handle  */
+#modal-grow-delete .modal-content{
+  background-color: var(--color-green-light);
+  color: var(--color-green-text);
+}
+
+#modal-grow-delete .modal-header{
+  border-bottom: 1px var(--color-green-dark) solid;
+}
+
+/* NOTES HANDLER ########################################## */
+.notes-title{
+  color: var(--color-green-text);
+}
+
+.notes-time{
+  position: absolute;
+  top: 0.82em;
+  left: 1em;
+  font-size: 0.8em;
+}
+
+.notes-content{
+  word-break: break-all;
+}
+
+.notes-read-more {
+  font-size: 0.7em;
+}
+
+.note-delete{
+  font-size: 0.7em;
+  position: absolute;
+  left: -5px;
+}
+
+.note-delete-button{
+  opacity: 0.65;
+  /* fx */
+  transition: var(--transition-all-01);
+  -webkit-transition: var(--transition-all-01);
+}
+.note-delete-button:hover{
+  opacity: 1;
+}
+
+@media(min-width: 576px){
+  .note-delete{
+    left: -10px!important;
+  }
 }
 /* NOTE:
 this selector defines the default PANEL styling for all views. overides should be performed below. */
@@ -336,14 +409,37 @@ this selector defines the default PANEL styling for all views. overides should b
 }
 
 /* BUTTON STYLING ##################################### */
+.btn{
+  font-size: 0.75em!important;
+  padding: 0.12em!important;
+}
+
+@media(min-width: 768px){
+  .btn{
+    font-size: 0.95em!important;
+    padding: 0.25em!important;
+  }
+}
+
+.btn-info{
+  background-color: var(--color-green-pale)!important;
+  border-color: var(--color-green-pale)!important;
+  color: var(--color-green-text)!important;
+}
+.btn-info:hover{
+  background-color: var(--color-green-dark)!important;
+  border-color: var(--color-green-dark)!important;
+  color: var(--color-green-pale)!important;
+}
+
 .btn-outline-info{
-  border-color: var(--color-green-pale);
-  color: var(--color-green-pale);
+  border-color: var(--color-green-pale)!important;
+  color: var(--color-green-pale)!important;
 }
 .btn-outline-info:hover{
-  border-color: var(--color-green-pale);
-  color: var(--color-green-dark);
-  background-color: var(--color-green-pale);
+  border-color: var(--color-green-pale)!important;
+  color: var(--color-green-dark)!important;
+  background-color: var(--color-green-pale)!important;
 }
 
 .btn-outline-primary{

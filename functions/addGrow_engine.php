@@ -6,6 +6,14 @@
 //    To better optimization, to `avoid retrieve array > deal with data > save array` which sounds heavy,
 //    I decided to prepare the `grow_table` for all possible scenarios.
 
+// NOTE: create local vars to populate form if vars are already set
+if (isset($_POST["grow_name"])){$input_growName = $_POST["grow_name"];} else {$input_growName = null;}
+if (isset($_POST["grow_description"])){$input_growBio = $_POST["grow_description"];} else {$input_growBio = null;}
+if (isset($_POST["grow_area"])){$input_growArea = $_POST["grow_area"];} else {$input_growArea = null;}
+if (isset($_POST["grow_height"])){$input_growHeight = $_POST["grow_height"];} else {$input_growHeight = null;}
+if (isset($_POST["grow_date"])){$input_growDate = $_POST["grow_date"];}
+if (isset($_POST["grow_lamps"])){$input_growLamps = $_POST["grow_lamps"];} else {$input_growLamps = null;}
+if (isset($_POST["grow_power"])){$input_growPower = $_POST["grow_power"];} else {$input_growPower = null;}
 
 // NOTE: AVAILABLE SETTINGS TO ACTIVATE PER GROW
 
@@ -68,16 +76,6 @@ function genGrowSettings($settings){
   print $checkbox;
   return;
 }
-
-
-// NOTE: create local vars to populate form if vars are already set
-if (isset($_POST["grow_name"])){$input_growName = $_POST["grow_name"];} else {$input_growName = null;}
-if (isset($_POST["grow_description"])){$input_growBio = $_POST["grow_description"];} else {$input_growBio = null;}
-if (isset($_POST["grow_area"])){$input_growArea = $_POST["grow_area"];} else {$input_growArea = null;}
-if (isset($_POST["grow_height"])){$input_growHeight = $_POST["grow_height"];} else {$input_growHeight = null;}
-if (isset($_POST["grow_date"])){$input_growDate = $_POST["grow_date"];}
-if (isset($_POST["grow_lamps"])){$input_growLamps = $_POST["grow_lamps"];}
-if (isset($_POST["grow_power"])){$input_growPower = $_POST["grow_power"];}
 
 // NOTE: Edit Grow Function
 function editGrow($settingsAvailable){

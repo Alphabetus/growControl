@@ -1,4 +1,6 @@
 <?php
+// init
+$errorDisplay = null;
 // validate user authentication > keep out the ones who do not!
 // Must have this on all authenticated pages in worder to keep the system safe.
 lock();
@@ -32,7 +34,7 @@ require "functions/room_engine.php";
       -->
 
       <!-- col 1 > action box -->
-      <div id="actions" class="col-12 col-md-4 col-lg-3 col-xl-2 m-0 p-0 room-container-inner room-container-action collapse">
+      <div id="actions" class="col-12 col-md-4 col-lg-3 col-xl-2 m-0 p-0 room-container-inner room-container-action collapse border-right">
 
         <!-- action header -->
         <div class="row m-0 p-0 pt-3">
@@ -54,7 +56,7 @@ require "functions/room_engine.php";
           foreach ($roomTrackButtons as $button) {
             print '
               <!-- action item -->
-              <div class="col-12 m-0 p-2 pt-3 text-center">
+              <div class="col-12 m-0 p-2 pt-0 pt-md-3 text-center">
                 '. $button .'
               </div>
               <!-- /action item -->
@@ -65,16 +67,22 @@ require "functions/room_engine.php";
           <!-- default actions -->
 
           <!-- edit grow -->
-          <div class="col-12 m-0 p-2 pt-3 text-center">
+          <div class="col-12 m-0 p-2 pt-0 pt-md-3 text-center">
             <a href="?view=editGrow&room=<?php print $_GET["room"]; ?>" class="btn btn-sm btn-outline-primary text-left w-100"><i class="far fa-edit"></i>&nbsp;edit grow</a>
           </div>
           <!-- /edit grow -->
 
           <!-- delete grow -->
-          <div class="col-12 m-0 p-2 pt-3 text-center">
-            <a href="#" class="btn btn-sm btn-outline-danger text-left w-100"><i class="far fa-edit"></i>&nbsp;delete grow</a>
+          <div class="col-12 m-0 p-2 pt-0 pt-md-3 text-center">
+            <a id="delete-grow-button" href="#" class="btn btn-sm btn-outline-danger text-left w-100"><i class="far fa-trash-alt"></i>&nbsp;delete grow</a>
           </div>
           <!-- /delete grow -->
+
+          <!-- close menu -->
+          <div class="col-12 m-0 p-2 pt-0 pt-md-3 text-center">
+            <a id="close-actions" href="#" data-toggle="collapse" data-target="#actions" class="btn btn-sm btn-outline-primary w-100 text-left"><i class="far fa-window-close"></i>&nbsp;close tools</a>
+          </div>
+          <!-- /close menu -->
 
           <!-- /default actions -->
 
@@ -85,10 +93,22 @@ require "functions/room_engine.php";
       <!-- /col 1 > action box -->
 
       <!-- col 2 > info box -->
-      <div class="col-12 col-sm p-0 border-left room-container-inner room-container-info">
+      <div id="grow-box" class="col-12 p-0 room-container-inner room-container-info">
 
         <!-- header row -->
         <div class="row m-0 p-0">
+
+          <!-- error display -->
+          <div class="col-12 m-0 p-0 px-2 text-danger">
+            <?php print $errorDisplay; ?>
+          </div>
+
+          <!-- room title -->
+          <div class="col-10 room-header m-0 p-0 px-2 px-md-3 pt-2">
+            <h3 class="text-left text-truncate"><i class="fas fa-campground"></i><?php print ucfirst($roomData["grow_name"]); ?></h3>
+          </div>
+          <!-- /room title -->
+
           <!-- open tool box button -->
           <div class="col-1 m-0 p-0 pt-2 text-center">
 
@@ -99,14 +119,8 @@ require "functions/room_engine.php";
           </div>
           <!-- /open tool box button -->
 
-          <!-- room title -->
-          <div class="col-10 room-header m-0 p-0 px-2 px-md-3 pt-2">
-            <h3 class="text-center"><i class="fas fa-campground"></i><?php print ucfirst($roomData["grow_name"]); ?></h3>
-          </div>
-          <!-- /room title -->
-
           <!-- go back button -->
-          <div class="col-1 room-close m-0 p-0 text-center align-self-center">
+          <div class="col-1 room-close m-0 p-0 pt-2 text-center">
             <a href="?view=grows" class="btn btn-outline-primary btn-sm rounded w-75"><i class="fas fa-undo"></i></a>
           </div>
           <!-- /go back button -->
@@ -117,8 +131,8 @@ require "functions/room_engine.php";
         <!-- description row -->
         <div class="row m-0 p-0 px-2 px-md-3 room-description">
 
-          <p class="text-justify text-muted px-5">
-            <?php print ucfirst($roomData["grow_description"]); ?>
+          <p class="text-justify text-muted w-100">
+            <i class="fas fa-circle description-bullet"></i> <?php print ucfirst($roomData["grow_description"]); ?>
           </p>
 
         </div>
@@ -126,33 +140,43 @@ require "functions/room_engine.php";
 
         <hr class="bg-light">
 
-        <!-- grow type , age and tracks display -->
-        <?php include "partials/grow_type_tracks.php"; ?>
-        <!-- end of grow type , age and tracks display -->
+        <div class="col-12 m-0 p-0">
+          <!-- grow type , age and tracks display -->
+          <?php include "partials/grow_type_tracks.php"; ?>
+          <!-- end of grow type , age and tracks display -->
+        </div>
 
         <hr class="bg-light">
 
-        <!-- GRID 2x >> last pick && Relevant info -->
-        <?php include "partials/grow_grid_avatar_info.php"; ?>
-        <!-- END OF GRID 2x >> last pick && Relevant info -->
+        <div class="col-12 m-0 p-0">
+          <!-- GRID 2x >> last pick && Relevant info -->
+          <?php include "partials/grow_grid_avatar_info.php"; ?>
+          <!-- END OF GRID 2x >> last pick && Relevant info -->
+        </div>
 
         <hr class="bg-light">
 
-        <!-- Tracks list -->
-        <?php include "partials/grow_tracks_list.php"; ?>
-        <!-- end of tracks list -->
+        <div class="col-12 m-0 p-0">
+          <!-- Tracks list -->
+          <?php include "partials/grow_tracks_list.php"; ?>
+          <!-- end of tracks list -->
+        </div>
 
         <hr class="bg-light">
 
-        <!-- text log entries -->
-        <?php include "partials/grow_log_entries.php"; ?>
-        <!-- end of text log entries -->
+        <div class="col-12 m-0 p-0">
+          <!-- text log entries -->
+          <?php include "partials/grow_log_entries.php"; ?>
+          <!-- end of text log entries -->
+        </div>
 
         <hr class="bg-light">
 
-        <!-- plant table -->
-        <?php include "partials/grow_plant_table.php"; ?>
-        <!-- end of plant table -->
+        <div class="col-12 m-0 p-0">
+          <!-- plant table -->
+          <?php include "partials/grow_plant_table.php"; ?>
+          <!-- end of plant table -->
+        </div>
 
       </div>
 
@@ -163,3 +187,7 @@ require "functions/room_engine.php";
 
   <!-- /ROOM content -->
 </div>
+
+<!-- MODAL AREA -->
+<?php include "partials/modal_grow_delete.php"; ?>
+<!-- /MODAL AREA -->

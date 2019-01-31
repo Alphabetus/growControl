@@ -1,0 +1,6 @@
+Please take in consideration that this action is irreversible and once you delete your grow all the information is lost.
+
+Plants will remain stored and will not be deleted, however they will lose their connection to this specific grow.
+You are allowed to pick another grow for your plants at any time by accessing the <i>plants menu</i>.
+
+This is the last step before complete deletion.

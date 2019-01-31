@@ -9,18 +9,66 @@ $roomTrackValues = getTrackValuesArray($roomData);
 $roomTrackNames = getTrackNamesArray($roomData);
 $roomTrackButtons = getTrackButtonsArray($roomTrackNames, $roomTrackIcons);
 $roomAge = getAge($roomData["grow_start_date"]);
+$roomNotesPerPage = 3;
+$roomNotesPagesAndTotal = getNotesPagesNumber($roomNotesPerPage);
 // end of local vars
 
-// NOTE: Room action buttons
-// if (isset($_POST["log"])){
-//   // $doLog = createTrackLog("grow", $_GET["room"], $_POST["log"]);
-//   // if(!$doLog){ // js populates automatically the new value given without aditional reloading page :)
-//     // if there is an error display it
-//     // print $doLog;
-//   }
-// }
+// NOTE: Room action buttons > delete grow
+if (isset($_POST["delete_grow"])){
+  $errorDisplay = deleteGrow();
+  // check if number of lines deleted is 1 > otherwise something went quite wrong.
+  if ($errorDisplay == 1){
+    header("Location: ?view=grows");
+  }
+}
 
 // NOTE: Functions area
+
+// NOTE: Retrieves the number of existent notes on the room
+// and calculates the number of needed pages.
+// requires NUMBER OF NOTES PER PAGE  param. returns always an integer.
+// lets say that we need 3,1 pages > we will get 4 pages! > it rounds UP
+// OUTPUT IS:
+// Array containing [0] > noteTotalCount ; [1]> notePerPage
+function getNotesPagesNumber($notesPerPage){
+  //get db
+  $con = connectDB();
+  // prepare vars for query
+  $userID = mysqli_real_escape_string($con, $_SESSION["user_id"]);
+  $roomID = mysqli_real_escape_string($con, $_GET["room"]);
+  // prepare query
+  $notesQuery = mysqli_query($con, "SELECT * FROM note_table WHERE
+      note_user_id = '$userID' AND
+      note_parent_id = '$roomID' AND
+      note_scope = 'grow' ");
+  // count results
+  $notesNumber = mysqli_num_rows($notesQuery);
+  // divides by the number of NOTES PER PAGE [$notesPerPage]
+  $notesPerPageRaw = ($notesNumber / $notesPerPage);
+  // gets the next integer available
+  $notesPerPage = ceil($notesPerPageRaw);
+  // prepare array
+  $outArray = array($notesNumber, $notesPerPage);
+  // return value
+  return $outArray;
+}
+
+// NOTE: Delete grow
+function deleteGrow(){
+  // get db
+  $con = connectDB();
+  // prepare and secure data
+  $userID = mysqli_real_escape_string($con, $_SESSION["user_id"]);
+  $roomID = mysqli_real_escape_string($con, $_GET["room"]);
+  // prepare query
+  $deleteQuery = mysqli_query($con, "DELETE FROM grow_table WHERE grow_id = '$roomID' AND grow_user_id = '$userID'");
+  // run query
+  if (!$deleteQuery){
+    return mysqli_error($con);
+  }
+  // done without errors > return true
+  return true;
+}
 
 // NOTE: retrieve room array info
 function getRoomData(){
@@ -215,16 +263,16 @@ function getTrackButtonsArray($roomTrackNames, $roomTrackIcons){
     array_push($buttonArray, '
         <a href="#" class="btn btn-sm text-left btn-outline-primary w-100 text-truncate px-0" data-toggle="collapse" data-target="#log-'. $track .'">'. $roomTrackIcons[$index] .'&nbsp;log '. $track .'</a>
         <div id="log-'.$track.'" class="collapse row m-0 p-0">
-          <form method="POST">
+          <form method="POST" class="w-100">
 
 
             <div class="col-12 m-0 p-0 pt-2">
-              <div id="input-group-'. $track .'" class="input-group w-100" data-placement="bottom" data-content="Wrong value given" data>
+              <div id="input-group-'. $track .'" class="input-group" data-placement="bottom" data-content="Wrong value given" data>
                 <input type="hidden" name="log" value="'. $track .'"/>
                 <input id="log-'.$track.'-input" type="number" step="0.01" data-min="-100" data-max="100" class="form-control rounded form-control-sm" name="track-value" placeholder="log value" required/>
 
                 <div class="input-group-append">
-                  <button data-track="'. $track .'" data-symbol="'. $trackSymbol .'" data-userid="'. $_SESSION["user_id"] .'" data-table-scope="grow" data-parent-scope="'. $_GET["room"] .'" type="submit" class="create-log btn btn-sm btn-outline-primary"><i class="far fa-save"></i></button>
+                  <button data-track="'. $track .'" data-symbol="'. $trackSymbol .'" data-userid="'. $_SESSION["user_id"] .'" data-table-scope="grow" data-parent-scope="'. $_GET["room"] .'" type="submit" class="create-log btn btn-sm btn-success px-5"><i class="far fa-save"></i></button>
                 </div>
               </div>
             </div>

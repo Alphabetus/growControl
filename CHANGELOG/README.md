@@ -1,5 +1,14 @@
 # Changelog  
 
+### [v0.6 | 31/jan/19] > Grow system completion
+
+- Add several `ajax_requests` files to handle with grow specific notes without reloading the page.
+- Patch `editGrow_engine` and `addGrow_engine` to better fit the needed requests and data handling.
+- Severely patch `room.js` to accommodate all the require interactivity and ajax requests.
+- Add partial `grow_log_entries` to accommodate all log entries and better organise `grow_view`.
+- Add some strings to populate new areas.
+- Patch `theme01` to implement the new styling.
+
 ### [v0.5 | 29/jan/19] > Grow system near completion & code cleanup
 
 - Add `tracks_table` on DB to store all the tracking systems independently from the scope they are called from.

@@ -2,10 +2,10 @@
 
 ## WEB APP SYSTEM STATUS >> [UNRELEASED]:
 - **USERS:** ![Progress](http://progressed.io/bar/55)
-- **GROWS:** ![Progress](http://progressed.io/bar/99)
+- **GROWS:** ![Progress](http://progressed.io/bar/100?title=ready)
 - **PLANTS:** ![Progress](http://progressed.io/bar/0)
 - **GALLERY:** ![Progress](http://progressed.io/bar/0)  
-- **OVERALL:** ![Progress](http://progressed.io/bar/35)
+- **OVERALL:** ![Progress](http://progressed.io/bar/45)
 
 ## What is this?
 
