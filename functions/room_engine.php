@@ -9,8 +9,10 @@ $roomTrackValues = getTrackValuesArray($roomData);
 $roomTrackNames = getTrackNamesArray($roomData);
 $roomTrackButtons = getTrackButtonsArray($roomTrackNames, $roomTrackIcons);
 $roomAge = getAge($roomData["grow_start_date"]);
-$roomNotesPerPage = 3;
+$roomNotesPerPage = 4;
+$roomLogsPerPage = 4;
 $roomNotesPagesAndTotal = getNotesPagesNumber($roomNotesPerPage);
+$roomLogsPagesAndTotal = getLogsPagesNumber($roomLogsPerPage);
 // end of local vars
 
 // NOTE: Room action buttons > delete grow
@@ -29,7 +31,7 @@ if (isset($_POST["delete_grow"])){
 // requires NUMBER OF NOTES PER PAGE  param. returns always an integer.
 // lets say that we need 3,1 pages > we will get 4 pages! > it rounds UP
 // OUTPUT IS:
-// Array containing [0] > noteTotalCount ; [1]> notePerPage
+// Array containing [0] > noteTotalCount ; [1]> numberOfPages
 function getNotesPagesNumber($notesPerPage){
   //get db
   $con = connectDB();
@@ -46,10 +48,38 @@ function getNotesPagesNumber($notesPerPage){
   // divides by the number of NOTES PER PAGE [$notesPerPage]
   $notesPerPageRaw = ($notesNumber / $notesPerPage);
   // gets the next integer available
-  $notesPerPage = ceil($notesPerPageRaw);
+  $numberOfPages = ceil($notesPerPageRaw);
   // prepare array
-  $outArray = array($notesNumber, $notesPerPage);
-  // return value
+  $outArray = array($notesNumber, $numberOfPages);
+  // return array
+  return $outArray;
+}
+
+// NOTE: Simillar to the previous one, retrieves the number of existent log entries on the room
+// and calculates the number of needed pages.
+// requires NUMBER OF LOG ENTRIES PER PAGE param, returns always an integer.
+// OUTPUT IS:
+// Array containing [0] > logTotalCount ; [1] > number of pages.
+function getLogsPagesNumber($logsPerPage){
+  // get db
+  $con = connectDB();
+  // prepare vars for query
+  $userID = mysqli_real_escape_string($con, $_SESSION["user_id"]);
+  $roomID = mysqli_real_escape_string($con, $_GET["room"]);
+  // prepare query
+  $logsQuery = mysqli_query($con, "SELECT * FROM track_table WHERE
+      track_user_id = '$userID' AND
+      track_parent_scope = '$roomID' AND
+      track_table_scope = 'grow' ");
+  // count results
+  $logsNumber = mysqli_num_rows($logsQuery);
+  // divides by the number of LOGS PER PAGE
+  $numberOFpagesRaw = ($logsNumber / $logsPerPage);
+  // round to the next integer available
+  $numberOFpages = ceil($numberOFpagesRaw);
+  // prepare return output as Array
+  $outArray = array($logsNumber, $numberOFpages);
+  // return array
   return $outArray;
 }
 

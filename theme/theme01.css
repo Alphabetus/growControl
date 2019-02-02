@@ -284,7 +284,7 @@ p{font-size: 0.75em;}
   color: var(--color-green-text);
 }
 
-.room-tracks-header, .room-logs-header{
+.room-tracks-header, .room-info-header{
   color: var(--color-green-dark);
 }
 
@@ -304,6 +304,45 @@ p{font-size: 0.75em;}
 
 #modal-grow-delete .modal-header{
   border-bottom: 1px var(--color-green-dark) solid;
+}
+
+/* TABS > NOTES > LOGS HANDLER ############################ */
+#grow-info-tab-nav .active{
+  background-color: var(--color-green-dark);
+  border-color: var(--color-green-dark);
+  color: var(--color-green-pale);
+}
+#grow-info-tab-nav .active:hover{
+  color: var(--color-green-pale)!important;
+}
+
+#grow-info-tab-nav .nav-item{
+  /* fx */
+  transition: var(--transition-all-01);
+  -webkit-transition: var(--transition-all-01);
+}
+#grow-info-tab-nav .nav-item:hover{
+  background-color: var(--color-green-light);
+}
+
+#grow-info-tab-nav .nav-link{
+  border-color: var(--color-green-dark);
+}
+
+#grow-info-tab-nav .rounded{
+  border-radius: 0.15em 0.15em 0 0!important;
+}
+
+#grow-info-tab-nav a{
+  color: var(--color-green-text);
+}
+#grow-info-tab-nav a:hover{
+  color: var(--dark)!important;
+}
+
+#grow-info-tab-nav{
+  border-color: var(--color-green-dark);
+  border-width: 0.15em;
 }
 
 /* NOTES HANDLER ########################################## */

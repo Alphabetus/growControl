@@ -1,5 +1,14 @@
 # Changelog  
 
+### [v0.9 | 02/feb/19] > Patch room log handling
+- Enable room log listing and removal.
+- Patch `room.js` to handle confirmation and `ajax_request` to delete log entry.
+- Rename `grow_log_entries` as `grow_note_entries`.
+- Add new `grow_log_entries` as the default file to deliver the log entries partial view.
+- Patch `theme01` to handle log table.
+- Patch `grow_view` to deliver the new requested displays.
+
+
 ### [v0.8 | 31/jan/19] > Small fixes
 
 - Patch `room.js` to enhance input data validation.

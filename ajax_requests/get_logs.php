@@ -1,11 +1,10 @@
 <?php
 
 if(isset($_POST["parent_id"])){
-  print getNotesArray();
+  print getLogsArray();
 }
 
-
-// NOTE: reads post data to retrieve complete notes array according to limit.
+// NOTE: reads post data to retrieve complete logs array according to limit.
 // POST params:
 //
 // > userid
@@ -25,8 +24,7 @@ if(isset($_POST["parent_id"])){
 // `notes` `logs` `etc` retrieve `get_fileName` ajax requests into a single file / function
 // that filters based on the SCOPE!
 
-
-function getNotesArray(){
+function getLogsArray(){
   require "../config/dbConfig.php";
   // get db
   $con = connectDB();
@@ -38,24 +36,23 @@ function getNotesArray(){
   $scope = mysqli_real_escape_string($con, $_POST["scope"]);
   $pageNumberRaw = mysqli_real_escape_string($con, $_POST["page_number"]);
   $pageNumber = intval($pageNumberRaw);
-  $limitRaw = mysqli_real_escape_string($con, $_POST["limit_post"]);
+  $limitRaw = mysqli_real_escape_string($con, $_POST["post_limit"]);
   $limit = intval($limitRaw);
   // calculate offset
   $offset = (($limit * $pageNumber) - $limit);
   // prepare query
-  $getNotesQuery = mysqli_query($con, "SELECT * FROM note_table WHERE
-    note_user_id= '$userID' AND
-    note_parent_id = '$parentID' AND
-    note_scope = '$scope'
-    ORDER BY note_timestamp DESC LIMIT $limit OFFSET $offset");
-
+  $getNotesQuery = mysqli_query($con, "SELECT * FROM track_table WHERE
+    track_user_id= '$userID' AND
+    track_parent_scope = '$parentID' AND
+    track_table_scope = '$scope'
+    ORDER BY track_timestamp DESC LIMIT $limit OFFSET $offset");
   // loop results and create array
   while ($note = mysqli_fetch_array($getNotesQuery)){
     array_push($resultsArray, $note);
   }
+  // encode to JSON
   $output = json_encode($resultsArray);
+  // return encoded to ajax var data
   return $output;
-
 }
-
 ?>

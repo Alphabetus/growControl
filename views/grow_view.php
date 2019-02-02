@@ -164,11 +164,42 @@ require "functions/room_engine.php";
 
         <hr class="bg-light">
 
-        <div class="col-12 m-0 p-0">
-          <!-- text log entries -->
-          <?php include "partials/grow_log_entries.php"; ?>
-          <!-- end of text log entries -->
+        <!-- TAB NAVIGATION -->
+        <ul class="nav nav-tabs shadow-sm" id="grow-info-tab-nav" role="tablist">
+
+          <li class="ml-2 nav-item w-25">
+            <a class="nav-link active rounded" id="notes-tab-button" data-toggle="tab" href="#notes-tab" role="tab" aria-controls="notes-tab" aria-selected="true">Notes</a>
+          </li>
+
+          <li class="ml-2 nav-item w-25">
+            <a class="nav-link rounded" id="logs-tab-button" data-toggle="tab" href="#logs-tab" role="tab" aria-controls="logs-tab" aria-selected="false">Logs</a>
+          </li>
+
+        </ul>
+        <!-- /TAB NAVIGATION -->
+
+
+        <!-- TAB CONTENT -->
+        <div class="tab-content" id="grow-info-tab-content">
+
+          <!-- notes area -->
+          <div class="col-12 m-0 p-0 tab-pane fade show active pt-3" id="notes-tab" role="tabpanel" aria-labelledby="notes-tab-button">
+            <!-- note entries -->
+            <?php include "partials/grow_note_entries.php"; ?>
+            <!-- end of note entries -->
+          </div>
+          <!-- /notes area -->
+
+          <!-- logs area -->
+          <div class="col-12 m-0 p-0 tab-pane fade pt-3" id="logs-tab" role="tabpanel" aria-labelledby="logs-tab-button">
+            <!-- log entries -->
+            <?Php include "partials/grow_log_entries.php"; ?>
+            <!-- end of log entries -->
+          </div>
+          <!-- /logs area -->
+
         </div>
+        <!-- /TAB CONTENT -->
 
         <hr class="bg-light">
 

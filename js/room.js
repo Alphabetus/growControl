@@ -1,16 +1,27 @@
 $(document).ready(function(){
 
-// create global var for pagination
-pageNumber = 1;
-pageLimit = parseInt($("#notes-nav").data("total-pages"));
-noteLimitPerPage = parseInt($("#notes-nav").data("per-page"));
+// create global var for pagination > notes
+pageNumberNotes = 1;
+pageLimitNotes = parseInt($("#notes-nav").data("total-pages"));
+limitPerPageNotes = parseInt($("#notes-nav").data("per-page"));
 noteCount = parseInt($("#notes-nav").data("total-notes"));
+// create global var for pagination > logs
+pageNumberLogs = 1;
+pageLimitLogs = parseInt($("#logs-nav").data("total-pages"));
+limitPerPageLogs = parseInt($("#logs-nav").data("per-page"));
+logCount = parseInt($("#logs-nav").data("total-notes"));
 // read necessary id's from DOM
 userID = $("#notes-container").data("id");
 roomID = $("#notes-container").data("room");
 // poulate DOM with existant notes
-populateNotes(userID, roomID, pageNumber, noteLimitPerPage);
-isNavButtonVisible();
+populateNotes(userID, roomID, pageNumberNotes, limitPerPageNotes);
+
+
+// populate DOM with existant log entries
+populateLogs(userID, roomID, pageNumberLogs, limitPerPageLogs);
+
+
+
 // NOTE: ADD TRACK LOG SCRIPT  [include AJAX]
 //Script to insert track log values into DB and live-time update displays
 // This script is activated with the .create-log button class.
@@ -20,6 +31,8 @@ isNavButtonVisible();
     // prevent normal submit > i wanna do it here
     e.preventDefault();
     addTrackLog($(this));
+    // populate DOM with updated log entries
+    populateLogs(userID, roomID, pageNumberLogs, limitPerPageLogs);
   });
   // end of pulate track logs with new value
 
@@ -57,19 +70,34 @@ isNavButtonVisible();
 
   // GENERAL LISTENERS BELOW
 
+  // next log page button
+  $("#logs-next").on("click", function(e){
+    e.preventDefault();
+    pageNumberLogs++;
+    populateLogs(userID, roomID, pageNumberLogs, limitPerPageLogs);
+    isNavButtonVisibleLogs();
+  });
+  // previous note page button
+  $("#logs-prev").on("click", function(e){
+    e.preventDefault();
+    pageNumberLogs--;
+    populateLogs(userID, roomID, pageNumberLogs, limitPerPageLogs);
+    isNavButtonVisibleLogs();
+  });
+
   // next note page button
   $("#note-next").on("click", function(e){
     e.preventDefault();
-    pageNumber++;
-    populateNotes(userID, roomID, pageNumber, noteLimitPerPage);
-    isNavButtonVisible();
+    pageNumberNotes++;
+    populateNotes(userID, roomID, pageNumberNotes, limitPerPageNotes);
+    isNavButtonVisibleNotes();
   });
-  // previous page button
+  // previous note page button
   $("#note-prev").on("click", function(e){
     e.preventDefault();
-    pageNumber--;
-    populateNotes(userID, roomID, pageNumber, noteLimitPerPage);
-    isNavButtonVisible();
+    pageNumberNotes--;
+    populateNotes(userID, roomID, pageNumberNotes, limitPerPageNotes);
+    isNavButtonVisibleNotes();
   });
 
   // listener open tools button
@@ -111,6 +139,40 @@ isNavButtonVisible();
 
 // NOTE: FUNCTIONS
 
+// prepare the log deletion and require user confirmation
+function logPreDelete(context){
+  window.event.preventDefault();
+  // get variables
+  var context = $(context);
+  var logID = context.data("log-id");
+  var element = $("#log-entry-" + logID);
+  // backup content before erasing DOM element contents.
+  oldHTMLlog = element.html();
+  // replace dom element content with confirmation / cancel buttons
+  element.html(`
+    <td colspan="4">
+
+      <div class="row m-0 p-0">
+
+        <div class="col-10 m-0 p-0 text-danger">
+          Are you sure you want to remove this entry?
+        </div>
+
+        <div class="col-1 m-0 p-0 px-1 text-right">
+          <a href="#" class="btn btn-sm btn-danger rounded" onClick="logDeleteConfirm(${userID}, ${logID})"><i class="fas fa-times"></i></a>
+        </div>
+
+        <div class="col-1 m-0 p-0 px-1 text-right">
+          <a href="#" class="btn btn-sm btn-success rounded" onClick="logDeleteCancel(${logID})">cancel</a>
+        </div>
+
+      </div>
+
+
+    </td>
+    `);
+}
+
 // prepare the note deletion by changing the DOM to confirm.
 function notePreDelete(context){
   window.event.preventDefault();
@@ -123,7 +185,7 @@ function notePreDelete(context){
   oldHTMLnote = parentElement.html();
   // replace DOM content with confirmation form
   parentElement.html(`
-    <div class="col-12 m-0 p-0 note-delete-confirm-container border-bottom border-dark pb-2">
+    <div class="col-12 m-0 p-0 note-delete-confirm-container border-bottom border-light pb-2">
       <h5 class="text-danger"><i class="fas fa-exclamation-circle"></i>&nbsp;Are you sure you want to delete this note?</h5>
 
       <div class="row m-0 p-0">
@@ -142,7 +204,47 @@ function notePreDelete(context){
 
 }
 
+// deletes the log entry and repopulates data from DOM container
+function logDeleteConfirm(user, log){
+  window.event.preventDefault();
+  // ajax request to delete log entry from DB
+  jQuery.ajax({
+    url: "ajax_requests/delete_log.php",
+    data: {
+      user_id: user,
+      log_id: log
+    },
+    type: "POST",
+    success: function(data){
+      // Ajax request worked as intended.
+      if (data === "ok"){
+        // deletion was OK
+        // decrease logCount
+        logCount--;
+        // recalculate log limit per page
+        var pageLimitLogsCalc = eval(logCount / limitPerPageLogs);
+        // gets the next integer of that value
+        // same process has done on bEND to deliver the initial DOM
+        // define the new page Limit on note add.
+        pageLimitLogs = (Math.ceil(pageLimitLogsCalc));
+        // repaint container
+        populateLogs(userID, roomID, pageNumberLogs, limitPerPageLogs);
+      }
+      else{
+        // output was something else besides 'ok' string.
+        // lets deliver what happened
+        alert(data);
+      }
+    },
+    error: function(){
+      alert("Error on ajax request. room.js while deleting log entry.\nPlease report");
+    }
+  });
 
+  return;
+}
+
+// deletes the note entry and repopulates data from DOM container
 function noteDeleteConfirm(user, note){
   window.event.preventDefault();
   // ajax request to delete entry from DB
@@ -158,12 +260,12 @@ function noteDeleteConfirm(user, note){
         // increase noteCount
         noteCount--;
         // recalculates notes limit per page
-        var pageLimitCalc = eval(noteCount / noteLimitPerPage);
+        var pageLimitNotesCalc = eval(noteCount / limitPerPageNotes);
         // gets the next integer of that value
         // same process has done on bEND to deliver the initial DOM
         // define the new page Limit on note add.
-        pageLimit = (Math.ceil(pageLimitCalc));
-        populateNotes(userID, roomID, pageNumber, noteLimitPerPage);
+        pageLimitNotes = (Math.ceil(pageLimitNotesCalc));
+        populateNotes(userID, roomID, pageNumberNotes, limitPerPageNotes);
       }
       else{
         alert(data);
@@ -184,11 +286,46 @@ function noteDeleteCancel(noteID){
   return;
 }
 
+function logDeleteCancel(logID){
+  window.event.preventDefault();
+  // replace html for right container
+  $("#log-entry-" + logID).html(oldHTMLlog);
+  return;
+}
+// calculates visible logs page displays OR hides the navigation buttons
+// for logs area.
+function isNavButtonVisibleLogs(){
+  // handles with NEXT button
+  if(pageNumberLogs < pageLimitLogs){
+    $("#logs-next").show();
+  }
+  else{
+    $("#logs-next").hide();
+  }
+
+  // handles with PREV button
+  if (pageNumberLogs > 1){
+    $("#logs-prev").show();
+  }
+  else{
+    $("#logs-prev").hide();
+  }
+
+  // on top of that, if there is not enough posts to reach the second page
+  // the buttons are hidden
+  if (logCount <= limitPerPageLogs){
+    $("#logs-nav").hide();
+  }
+  else{
+    $("#logs-nav").show();
+  }
+}
+
 // calculates visible note page displays OR hides the navigation buttons
 // for notes area.
-function isNavButtonVisible(){
+function isNavButtonVisibleNotes(){
   // handles with NEXT button
-  if(pageNumber < pageLimit){
+  if(pageNumberNotes < pageLimitNotes){
     $("#note-next").show();
   }
   else{
@@ -196,7 +333,7 @@ function isNavButtonVisible(){
   }
 
   // handles with PREV button
-  if (pageNumber > 1){
+  if (pageNumberNotes > 1){
     $("#note-prev").show();
   }
   else{
@@ -205,7 +342,7 @@ function isNavButtonVisible(){
 
   // on top of that, if there is not enough posts to reach the second page
   // the buttons are hidden
-  if (noteCount <= noteLimitPerPage){
+  if (noteCount <= limitPerPageNotes){
     $("#notes-nav").hide();
   }
   else{
@@ -271,7 +408,16 @@ function addTrackLog(context){
             $("#log-" + trackName + "-input").attr("placeholder", "log value");
           }, 350);
         }, 350);
-        // console.log($("#log-" + trackName));
+        // increase logCount
+        logCount++;
+        // recalculates logs limit per page
+        var pageLimitLogsCalc = eval(logCount / limitPerPageLogs);
+        // gets the next integer of that value
+        // same process has done on bEND to deliver the initial DOM
+        // define the new page Limit on note add.
+        pageLimitLogs = (Math.ceil(pageLimitLogsCalc));
+        // reChecks local nav buttons visibility 
+        isNavButtonVisibleLogs();
       }
       else{
 
@@ -390,7 +536,7 @@ function addNote(context){
               $("#display-note-form").html(defaultButton);
             }, 1200);
             // repopulate container with new data
-            populateNotes(user, room, 1, noteLimitPerPage);
+            populateNotes(user, room, 1, limitPerPageNotes);
             // scroll to the new inserted note
             if ($("#notes-container div:first-child").length > 0){
               var offsetNoteTop = $("#notes-container div:first-child").offset().top - 80;
@@ -414,11 +560,11 @@ function addNote(context){
   // increase noteCount
   noteCount++;
   // recalculates notes limit per page
-  var pageLimitCalc = eval(noteCount / noteLimitPerPage);
+  var pageLimitNotesCalc = eval(noteCount / limitPerPageNotes);
   // gets the next integer of that value
   // same process has done on bEND to deliver the initial DOM
   // define the new page Limit on note add.
-  pageLimit = (Math.ceil(pageLimitCalc));
+  pageLimitNotes = (Math.ceil(pageLimitNotesCalc));
   }
   return;
 }
@@ -444,10 +590,10 @@ function resizeInfoBox(){
 
 
 // populate the DOM with the notes elements.
-// @params [userID, roomID, pageNumber, noteLimitPerPage]
+// @params [userID, roomID, pageNumberNotes, limitPerPageNotes]
 // returns nothing .
 function populateNotes(user, room, page, limitPerPage){
-// run ajax post
+// run ajax post request to get data array
   jQuery.ajax({
     url: "ajax_requests/get_notes.php",
     data: {
@@ -500,7 +646,7 @@ function populateNotes(user, room, page, limitPerPage){
 
             </div>
 
-            <div class="col-12 m-0 p-0 pt-3 notes-content border-bottom border-dark">
+            <div class="col-12 m-0 p-0 pt-3 notes-content border-bottom border-light">
               <p id="note-${notesArray[i]["note_id"]}" class="text-justify notes-content-inner">
                 ${notesArray[i]["note_message"]}
               </p>
@@ -537,5 +683,99 @@ function populateNotes(user, room, page, limitPerPage){
   });
 
   // repaint buttons
-  isNavButtonVisible();
+  isNavButtonVisibleNotes();
+}
+
+
+// populate the DOM with the logs elements.
+// @params [userID, roomID, pageNumberLogs, limitPerPageLogs]
+// returns nothing .
+function populateLogs(user, room, page, limitPerPage){
+  // run ajax request to get data array .
+  jQuery.ajax({
+    url: "ajax_requests/get_logs.php",
+    data: {
+      user_id: user,
+      parent_id: room,
+      page_number: page,
+      post_limit: limitPerPage,
+      scope: "grow"
+    },
+    type: "POST",
+    success: function (data){
+      // AJAX REQUEST WORKED JUST FINE AS IT SHOULD LETS DELIVER
+      // decode json
+      var logsArray = JSON.parse(data);
+      // empty container
+      $("#log-table").html("");
+      // validate content length.. deliver default if empty
+      if (logsArray.length < 1){
+        $("#log-table").append(`
+          <tr>
+            <td colspan="*">
+              -- <i>empty</i> --
+            </td>
+          </tr>
+          `);
+      }
+      // loop data array and populate table
+      for(i = 0; i < logsArray.length; i++){
+        // prepare vars
+        // format time
+        var logTimestamp = new Date(logsArray[i]["track_timestamp"] * 1000);
+        var logDay = "0" + logTimestamp.getDay();
+        var logMonth = "0" + logTimestamp.getMonth() + 1;
+        var logYear = logTimestamp.getFullYear();
+        var logHours = logTimestamp.getHours();
+        var logMinutes = "0" + logTimestamp.getMinutes();
+        var logFormatedTime = logDay.substr(-2) + "/" + logMonth.substr(-2) + "/" + logYear + " - " + logHours + ":" + logMinutes.substr(-2);
+        // format type > from string to icon
+        switch (logsArray[i]["track_scope"]) {
+          case 'temperature':
+            trackIcon = `<i class="fas fa-temperature-high" title="log type temperature"></i>`;
+            break;
+          case 'humidity':
+            trackIcon = `<i class="fas fa-tint" title="log type humidity"></i>`;
+            break;
+          case 'co2':
+            trackIcon = `<i class="fas fa-wind" title="log type co2"></i>`;
+            break;
+          default:
+            trackIcon = `<i class="fas fa-circle" title="icon not defined"></i>`;
+        }
+        // populate table
+        $("#log-table").append(`
+          <tr id="log-entry-${logsArray[i]["track_id"]}">
+
+            <td>
+              ${trackIcon}
+            </td>
+
+            <td>
+              ${logFormatedTime}
+            </td>
+
+            <td>
+              ${logsArray[i]["track_value"]}
+            </td>
+
+            <td class="text-center">
+              <a href="#" class="btn btn-sm btn-outline-danger" onClick="logPreDelete(this)" data-log-id="${logsArray[i]["track_id"]}"><i class="fas fa-times"></i></a>
+            </td>
+          </tr>
+          `);
+      }
+
+
+
+
+    },
+    error: function(){
+      alert("Ajax request error on room.js while populating logs content.\nPlease report.");
+      return;
+    }
+  });
+
+  // repaint buttons
+  isNavButtonVisibleLogs();
 }
