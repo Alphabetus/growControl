@@ -13,8 +13,9 @@ $timeInput = strftime('%Y-%m-%dT%H:%M', time());
 // initialize local vars
 $editGrowDisplay = array();
 $errorArray = array();
+
 // action > add grow submit
-if (isset($_POST["grow_name"])){
+if (isset($_POST["token"]) && $_POST["token"] === $_SESSION["token"]){
   $editGrowDisplay = editGrow($settingsAvailable);
   if ($editGrowDisplay === true){
     // grow was successfully created > redirect to grows view
@@ -44,6 +45,10 @@ if (isset($_POST["grow_name"])){
   <div class="col-12 col-sm-8 col-md-9 col-lg-10 px-5 pt-2 pt-sm-3">
 
     <form method="POST">
+
+      <!-- autenticity -->
+      <input type="hidden" name="token" value="<?php print getPostToken(); ?>">
+      <!-- /autenticity -->
 
       <!-- grow name -->
       <div class="form-group col-12 m-0 p-0">

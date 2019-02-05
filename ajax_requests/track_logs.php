@@ -1,11 +1,12 @@
 <?php
+session_start();
 // NOTE: create track log on Db.
 // we need:
 // > table_table_scope (which table is parent of our log target?)
 // > track_parent_scope (ID from origin item. eg. growRoom, plantId, etc)
 // > track_scope (name of the track)
 
-if (isset($_POST["track_name"])){
+if ( isset($_POST["token"]) && $_SESSION["token"] === $_POST["token"]){
   print $do = createTrackLog($_POST['table_scope'], $_POST["parent_scope"], $_POST["track_name"]);
 }
 

@@ -48,7 +48,8 @@ require "functions/room_engine.php";
 
         <div class="row m-0 p-0 room-container-action-innser justify-content-around">
 
-
+          <form>
+            <input id="log-token" type="hidden" value="<?php print getPostToken();?>">
           <?php
           // NOTE: Generate the action buttons and print them accordingly
 
@@ -63,6 +64,7 @@ require "functions/room_engine.php";
             ';
           }
           ?>
+        </form>
 
           <!-- default actions -->
 

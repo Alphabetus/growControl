@@ -34,6 +34,11 @@
       <div class="col-12 m-0 p-0">
 
         <div class="col-12 m-0 p-0">
+
+          <!-- autenticity -->
+          <input type="hidden" name="token" value="<?php print getPostToken(); ?>">
+          <!-- /autenticity -->
+
           <input id="input-note-title" name="note_title" type="text" maxlength="51" placeholder="title" class="form-control text-left">
         </div>
 

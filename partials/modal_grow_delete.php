@@ -41,6 +41,11 @@
           <!-- confirm & delete form -->
           <div class="col-6 m-0 p-0 text-center">
             <form method="POST">
+
+              <!-- autenticity -->
+              <input type="hidden" name="token" value="<?php print getPostToken(); ?>">
+              <!-- /autenticity -->
+              
               <input type="hidden" name="delete_grow">
               <button type="submit" class="btn btn-sm btn-danger w-75">delete grow room</button>
             </form>

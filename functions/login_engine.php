@@ -38,6 +38,9 @@ function loginUser(){
     $userID = $userInfoArray["user_id"];
     $username = $userInfoArray["user_name"];
     $sessionTime = time();
+    // generate POST autenticity token
+    $sessionUid = uniqid();
+    $sessionToken = md5($sessionTime . $sessionUid . $userID);
     // kill any existant user session > db sided
     // This will eventually logout any fake user.
     killSessionDB($userID);
@@ -47,8 +50,23 @@ function loginUser(){
     $_SESSION["user"] = $userGuid;
     $_SESSION["locale"] = $maskedIP;
     $_SESSION["agent"] = $maskedAgent;
+    $_SESSION["token"] = $sessionToken;
     // create DB session query
-    $sessionInsertQuery = mysqli_query($con, "INSERT INTO session_table (session_user_id, session_user_cguid, session_agent, session_locale, session_time) VALUES ($userID, '$userGuid', '$maskedAgent', '$maskedIP', $sessionTime)");
+    $sessionInsertQuery = mysqli_query($con, "INSERT INTO session_table (
+          session_user_id,
+          session_user_cguid,
+          session_agent,
+          session_locale,
+          session_time,
+          session_token
+        ) VALUES (
+          $userID,
+          '$userGuid',
+          '$maskedAgent',
+          '$maskedIP',
+          $sessionTime,
+          '$sessionToken'
+        )");
     // run query
     if (!$sessionInsertQuery){
       return "error with DB:<br>" . mysqli_error($con);

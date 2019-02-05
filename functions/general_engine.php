@@ -1,4 +1,23 @@
 <?php
+// NOTE: check for autenticity on POST requests.
+// this function reads $_SESSION["token"] and compares with given on $_POST["token"];
+//
+// Main engine is make to deny POST requests without token autenticity by logging out the user.
+// log system will be applied later together with all errors.
+function checkPost(){
+  if ($_SESSION["token"] != $_POST["token"]){
+    logoutUser($_SESSION["user_id"]);
+  }
+  return;
+}
+
+// NOTE: retrieve the POST autenticity token as string.
+// require logged in user. retrieves token from $_SESSION["token"].
+function getPostToken(){
+  return $_SESSION["token"];
+}
+
+
 // NOTE: this function retrieves the string content from given filename and language excluding extension 'txt'.
 // Strings should be stored on /strings/langFolder
 // Logged in users will eventually be able to define $lang on their own settings / cookies.

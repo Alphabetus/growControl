@@ -14,6 +14,10 @@ require "config/dbConfig.php";
 if (isset($_GET["logout"])){
   logoutUser($_SESSION["user_id"]);
 }
+// token autenticity validation
+if (isset($_POST["token"]) && $_POST["token"] != $_SESSION["token"]){
+  logoutUser($_SESSION["user_id"]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

@@ -1,6 +1,6 @@
 <?php
-
-if (isset($_POST["input_message"])){
+session_start();
+if ( isset($_POST["token"]) && $_SESSION["token"] === $_POST["token"]){
   print createNote();
 }
 

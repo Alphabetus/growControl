@@ -1,5 +1,10 @@
 # Changelog  
 
+### [v0.10 | 05/feb/19] > Security update on post requests
+
+- Add authenticity token engine to pair and verify each post request.
+- Patch several files to support and require the new security token.
+
 ### [v0.9 | 02/feb/19] > Patch room log handling
 - Enable room log listing and removal.
 - Patch `room.js` to handle confirmation and `ajax_request` to delete log entry.

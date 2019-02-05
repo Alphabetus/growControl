@@ -13,6 +13,7 @@ logCount = parseInt($("#logs-nav").data("total-notes"));
 // read necessary id's from DOM
 userID = $("#notes-container").data("id");
 roomID = $("#notes-container").data("room");
+authToken = $("#log-token").val();
 // poulate DOM with existant notes
 populateNotes(userID, roomID, pageNumberNotes, limitPerPageNotes);
 
@@ -211,6 +212,7 @@ function logDeleteConfirm(user, log){
   jQuery.ajax({
     url: "ajax_requests/delete_log.php",
     data: {
+      token: authToken,
       user_id: user,
       log_id: log
     },
@@ -251,6 +253,7 @@ function noteDeleteConfirm(user, note){
   jQuery.ajax({
     url: "ajax_requests/delete_notes.php",
     data: {
+      token: authToken,
       user_id: user,
       note_id: note
     },
@@ -375,6 +378,7 @@ function addTrackLog(context){
     jQuery.ajax({
     url: "ajax_requests/track_logs.php",
     data: {
+          token: authToken,
           track_name: trackName,
           track_value: trackValue,
           userid: userID,
@@ -416,11 +420,11 @@ function addTrackLog(context){
         // same process has done on bEND to deliver the initial DOM
         // define the new page Limit on note add.
         pageLimitLogs = (Math.ceil(pageLimitLogsCalc));
-        // reChecks local nav buttons visibility 
+        // reChecks local nav buttons visibility
         isNavButtonVisibleLogs();
       }
       else{
-
+        alert(data);
       }
     },
     error:function (){
@@ -511,6 +515,7 @@ function addNote(context){
       jQuery.ajax({
         url: "ajax_requests/add_note.php",
         data: {
+          token: authToken,
           user_id: user,
           parent_id: room,
           input_message: inputMessage,
@@ -597,6 +602,7 @@ function populateNotes(user, room, page, limitPerPage){
   jQuery.ajax({
     url: "ajax_requests/get_notes.php",
     data: {
+      token: authToken,
       user_id: user,
       parent_id: room,
       scope: "grow",
@@ -695,6 +701,7 @@ function populateLogs(user, room, page, limitPerPage){
   jQuery.ajax({
     url: "ajax_requests/get_logs.php",
     data: {
+      token: authToken,
       user_id: user,
       parent_id: room,
       page_number: page,
